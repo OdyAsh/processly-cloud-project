@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import ProductsList from '../components/products/ProductsList';
+import { useEffect, useState } from "react";
+import ProductsList from "../components/products/ProductsList";
 
 const ProductsPage = () => {
   // let's define a state for products
@@ -15,8 +15,8 @@ const ProductsPage = () => {
     const fetchProducts = async () => {
       try {
         // send an HTTP GET request to the get products route we defined in our Express REST API
-        const response = await fetch('http://localhost:5000/products', {
-          signal: fetchSignal
+        const response = await fetch("http://localhost:3000/products", {
+          signal: fetchSignal,
         });
         // parse the response content to JSON and store it into data variable
         const data = await response.json();
@@ -45,7 +45,9 @@ const ProductsPage = () => {
   }, []);
 
   if (isLoading) {
-    return <p>Please wait while we are loading data...</p>;
+    return (
+      <p>Please wait while we are loading items that you can choose from...</p>
+    );
   }
 
   return (

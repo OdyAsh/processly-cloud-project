@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import AddProductForm from '../components/products/AddProductForm';
+import AddProductForm from "../components/products/AddProductForm";
 
 const AddProductPage = () => {
   const [suppliers, setSuppliers] = useState([]);
@@ -12,8 +12,8 @@ const AddProductPage = () => {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/suppliers', {
-          signal: fetchSignal
+        const response = await fetch("http://localhost:3000/suppliers", {
+          signal: fetchSignal,
         });
         const data = await response.json();
 

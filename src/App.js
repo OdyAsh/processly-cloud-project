@@ -1,13 +1,13 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AuthProvider from './store/AuthProvider';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AuthProvider from "./store/AuthProvider";
 
-import AddProductPage from './pages/AddProductPage';
-import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage';
-import SigninPage from './pages/SigninPage';
-import SignupPage from './pages/SignupPage';
-import Layout from './UI/layout/Layout';
-import ProdutPage from './pages/ProdutPage';
+import AddProductPage from "./pages/AddProductPage";
+import HomePage from "./pages/HomePage";
+import ProductsPage from "./pages/ProductsPage";
+import SigninPage from "./pages/SigninPage";
+import SignupPage from "./pages/SignupPage";
+import Layout from "./UI/layout/Layout";
+import ProdutPage from "./pages/ProdutPage";
 
 const App = () => {
   return (

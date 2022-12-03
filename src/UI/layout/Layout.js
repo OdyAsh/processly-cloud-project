@@ -1,4 +1,5 @@
-import Navbar from '../navbar/Navbar';
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
 const Layout = (props) => {
   return (
@@ -6,9 +7,10 @@ const Layout = (props) => {
       <header>
         <Navbar />
       </header>
-      <main className="flex flex-col justify-center items-center p-10">
-        {props.children}
-      </main>
+      <main>{props.children}</main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };

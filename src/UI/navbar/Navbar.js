@@ -2,24 +2,42 @@ import { useContext } from "react";
 import AuthContext from "../../store/authContext";
 import NavItem from "./NavItem";
 
+import navLogo from "../../assets/orange-box-by-good-ware.png";
+
 const Navbar = () => {
   const authContext = useContext(AuthContext);
-
+  if (authContext.role === "sales-team-member") {
+  }
+  if (authContext.role === "warehouse-member") {
+  }
   return (
-    <nav className="flex justify-around py-8 mx-auto bg-black">
+    <nav className="nav">
       <ul>
-        <NavItem to="/">icon</NavItem>
+        <NavItem to="/" className="no-line">
+          <img src={navLogo} alt="website logo" className="nav-logo" />
+        </NavItem>
       </ul>
-      <ul className="flex justify-around w-3/6 bg-w">
+      <ul className="nav-options">
         <NavItem to="/">Home</NavItem>
-        <NavItem to="/req">Make A Request</NavItem>
-        <NavItem to="/req">View Orders</NavItem>
-        <NavItem to="/req">About</NavItem>
+        <NavItem to="/products/add">Make A Request</NavItem>
+        <NavItem to="/view-o">View Orders</NavItem>
+        <NavItem to="/about">About</NavItem>
       </ul>
-      <ul className="flex justify-around">
-        {!authContext.token && <NavItem to="/signin">Sign In</NavItem>}
-        {!authContext.token && <NavItem to="/signin">/</NavItem>}
-        {!authContext.token && <NavItem to="/signup">Sign Up</NavItem>}
+      <ul
+        className={
+          (authContext.token && "nav-hide-element") || "nav-not-signed"
+        }
+      >
+        <NavItem to="/signin">Sign In</NavItem>
+        <NavItem className="slash">&nbsp; / &nbsp;</NavItem>
+        <NavItem to="/signup">Sign Up</NavItem>
+      </ul>
+      <ul className={(authContext.token && "nav-signed") || "nav-hide-element"}>
+        <NavItem>Welcome, {authContext.username}</NavItem>
+        <NavItem className="slash">&nbsp; / &nbsp;</NavItem>
+        <NavItem to="/" className="signed-out">
+          Sign out
+        </NavItem>
       </ul>
     </nav>
   );

@@ -1,11 +1,11 @@
-import AuthContext from './authContext';
+import AuthContext from "./authContext";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 const AuthProvider = (props) => {
-  const [username, setUsername] = useState('');
-  const [id, setID] = useState('');
-  const [token, setToken] = useState('');
+  const [username, setUsername] = useState("");
+  const [id, setID] = useState("");
+  const [token, setToken] = useState("");
 
   const authContext = {
     username: username,
@@ -17,12 +17,11 @@ const AuthProvider = (props) => {
       setToken(token);
     },
     logout: () => {
-      setUsername('');
-      setID('');
-      setToken('');
-    }
+      setUsername("");
+      setID("");
+      setToken("");
+    },
   };
-
   return (
     <AuthContext.Provider value={authContext}>
       {props.children}
