@@ -1,6 +1,26 @@
 import { useState, useEffect } from "react";
+import { ColorRing } from "react-loader-spinner";
 
 import AddProductForm from "../components/products/AddProductForm";
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // source: https://bobbyhadz.com/blog/react-sleep-function
+
+const content = (isLoading, suppliers) => {
+  if (isLoading) {
+    return (
+      <ColorRing // source: https://mhnpd.github.io/react-loader-spinner/docs/components/color-ring
+        visible={true}
+        height="200"
+        width="200"
+        ariaLabel="loading-arialabel"
+        wrapperStyle={{}}
+        wrapperClassName="loading-wrapper"
+        colors={["#1B9D2C", "#0841C2", "#B0C000", "#BD0105", "#1B9D2C"]} //green, red, blue, yellow, green
+      />
+    );
+  }
+  return <AddProductForm suppliers={suppliers} />;
+};
 
 const AddProductPage = () => {
   const [suppliers, setSuppliers] = useState([]);
@@ -12,11 +32,11 @@ const AddProductPage = () => {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:3000/suppliers", {
+        const response = await fetch("http://localhost:5000/suppliers", {
           signal: fetchSignal,
         });
         const data = await response.json();
-
+        await sleep(1000);
         if (!response.ok) {
           throw Error(data.error);
         }
@@ -35,15 +55,7 @@ const AddProductPage = () => {
     };
   }, []);
 
-  if (isLoading) {
-    return <p>Loading list of existing suppliers...</p>;
-  }
-
-  return (
-    <div>
-      <AddProductForm suppliers={suppliers} />
-    </div>
-  );
+  return <div className="center-content">{content(isLoading, suppliers)}</div>;
 };
 
 export default AddProductPage;

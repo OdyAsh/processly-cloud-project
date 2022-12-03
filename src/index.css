@@ -12,6 +12,16 @@ code {
     monospace;
 }
 
+/************* Layout of Navbar, main content, and footer *************/
+.layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 20px;
+}
+
+
 /************* Navigation Bar *************/
 .nav {
   display: flex;
@@ -91,13 +101,13 @@ code {
   width: 100vw;
   justify-content: center;
   align-items: center;
-  row-gap: 5rem;
+  row-gap: 7rem;
   margin-top: 2rem;
 }
 
 .home h1 {
   font-size: 4vw;
-  line-height: 0.5;
+  line-height: 0;
   font-weight: 700;
 }
 
@@ -136,8 +146,8 @@ code {
 /************* Footer *************/
 .footer {
   display: flex;
+  margin-top: auto; /* positions footer at end of page when it is a flex child. Source: https://stackoverflow.com/questions/33924655/position-last-flex-item-at-the-end-of-container#:~:text=This%20will%20position%20the%20last%20element%20at%20the%20bottom */
   justify-content: center;
-  position: absolute;
   width: 100%;
   height: 4rem;
   bottom: 0;
@@ -165,6 +175,15 @@ code {
 .footer .social-icon img {
   height: 2rem;
 }
+
+/************* Make An Order *************/
+.center-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 
 @tailwind base;
 @tailwind components;
