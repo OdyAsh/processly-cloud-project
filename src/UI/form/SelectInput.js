@@ -4,7 +4,10 @@ const SelectInput = (props) => {
       <label className="text-white font-bold">{props.label}</label>
       <select
         className="rounded-lg min-w-[250px] p-2"
-        {...props.register(props.name, props.validation)}
+        onChange={props.onChange}
+        {...props.register(props.name, {
+          required: props.required,
+        })}
       >
         {props.options.map((o) => (
           <option value={o.value} key={o.value}>

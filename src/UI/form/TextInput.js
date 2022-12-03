@@ -6,6 +6,7 @@ const TextInput = (props) => {
         className="rounded-lg min-w-[250px] p-2"
         type={props.type}
         {...props.register(props.name, props.validation)}
+        onChange={props.onChange}
       />
     </div>
   );

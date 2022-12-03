@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../store/authContext";
 import FormInputError from "../../UI/form/FormInputError";
@@ -16,25 +16,35 @@ import TextInput from "../../UI/form/TextInput";
 */
 
 const MakeOrderForm = (props) => {
-  const { register, handleSubmit, formState, getValues } = useForm();
+  const { register, handleSubmit, formState } = useForm();
 
   const authContext = useContext(AuthContext);
 
   // const productsTypes = props.products.map((s) => {
   //   return { name: s.name, value: s._id };
   // }); // to do: uncomment this and delete dummy list below
-  const productsTypes = [
-    { name: "flag", value: 1 },
-    { name: "flag", value: 2 },
-  ];
+  const [productsTypes] = useState([
+    { name: "a", value: "flag" },
+    { name: "Flag", value: "b" },
+  ]);
+  const [selectedProductType, setSPT] = useState("");
+
   const productsSizes = [
-    { name: "XS", value: 1 },
-    { name: "S", value: 2 },
-    { name: "M", value: 3 },
-    { name: "L", value: 4 },
-    { name: "XL", value: 5 },
+    [
+      { name: "XS", value: 1 },
+      { name: "S", value: 2 },
+      { name: "M", value: 3 },
+      { name: "L", value: 4 },
+      { name: "XL", value: 5 },
+    ],
   ];
-  console.log(getValues("product_type"));
+
+  const handleChange = (e) => {
+    let selectedProductType = e.target.options[e.target.selectedIndex].text;
+    setSPT(selectedProductType);
+    console.log(selectedProductType);
+    return;
+  };
 
   const submitHandler = async (formData) => {
     try {
@@ -68,8 +78,9 @@ const MakeOrderForm = (props) => {
         label="Product Type"
         name="product_type"
         register={register}
-        validation={{ required: true }}
+        required={true}
         options={productsTypes}
+        onChange={handleChange}
       />
       {formState.errors.product_type && (
         <FormInputError>Product type must not be empty.</FormInputError>
@@ -86,13 +97,15 @@ const MakeOrderForm = (props) => {
         <FormInputError>Product quantity must be stated</FormInputError>
       )}
 
-      <SelectInput
-        label="Product Size"
-        name="product_size"
-        register={register}
-        validation={{ required: true }}
-        options={productsSizes}
-      />
+      {selectedProductType.toLowerCase() === "flag" && (
+        <SelectInput
+          label="Product Size"
+          name="product_size"
+          register={register}
+          validation={{ required: true }}
+          options={productsSizes}
+        />
+      )}
       {formState.errors.product_size && (
         <FormInputError>Product size must not be empty.</FormInputError>
       )}
