@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ColorRing } from "react-loader-spinner";
 
-import AddProductForm from "../components/products/AddProductForm";
+import MakeOrderForm from "../components/orders/MakeOrderForm";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // source: https://bobbyhadz.com/blog/react-sleep-function
 
@@ -19,7 +19,7 @@ const content = (isLoading, suppliers) => {
       />
     );
   }
-  return <AddProductForm suppliers={suppliers} />;
+  return <MakeOrderForm suppliers={suppliers} />;
 };
 
 const AddProductPage = () => {
@@ -32,7 +32,7 @@ const AddProductPage = () => {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/suppliers", {
+        const response = await fetch("http://localhost:5000/products", {
           signal: fetchSignal,
         });
         const data = await response.json();

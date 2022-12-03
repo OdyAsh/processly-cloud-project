@@ -13,7 +13,7 @@ code {
 }
 
 /************* Layout of Navbar, main content, and footer *************/
-.layout {
+.layout { /* source: https://stackoverflow.com/questions/33924655/position-last-flex-item-at-the-end-of-container */
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -176,13 +176,17 @@ code {
   height: 2rem;
 }
 
-/************* Make An Order *************/
+/************* MakeOrder.js *************/
 .center-content {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
+
+
+/************* MakeOrderForm.js *************/
+
 
 
 @tailwind base;

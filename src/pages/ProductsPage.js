@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductsList from "../components/products/ProductsList";
+import ProductsList from "../components/orders/ProductsList";
 
 const ProductsPage = () => {
   // let's define a state for products
