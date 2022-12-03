@@ -1,2 +1,3 @@
-# processly-cloud-project
-A Sales Order Processing (SOP) System
+# processly-frontend
+A Sales Order Processing (SOP) System 
+(Cloud Computing Project)
