@@ -24,24 +24,16 @@ const MakeOrderForm = (props) => {
   //   return { name: s.name, value: s._id };
   // }); // to do: uncomment this and delete dummy list below
   const productsTypes = [
-    { name: "flag", value: "flag" },
-    { name: "flag", value: "flag" },
+    { name: "flag", value: 1 },
+    { name: "flag", value: 2 },
   ];
   const productsSizes = [
-    [
-      { name: "XS", value: 1 },
-      { name: "S", value: 2 },
-      { name: "M", value: 3 },
-      { name: "L", value: 4 },
-      { name: "XL", value: 5 },
-    ],
+    { name: "XS", value: 1 },
+    { name: "S", value: 2 },
+    { name: "M", value: 3 },
+    { name: "L", value: 4 },
+    { name: "XL", value: 5 },
   ];
-  let flagValue = -1;
-  for (let obj of productsTypes) {
-    if (obj.name === "flag") {
-      flagValue = obj.value;
-    }
-  }
   console.log(getValues("product_type"));
 
   const submitHandler = async (formData) => {
@@ -94,15 +86,13 @@ const MakeOrderForm = (props) => {
         <FormInputError>Product quantity must be stated</FormInputError>
       )}
 
-      {flagValue === getValues("product_type") && (
-        <SelectInput
-          label="Product Size"
-          name="product_size"
-          register={register}
-          validation={{ required: true }}
-          options={productsSizes}
-        />
-      )}
+      <SelectInput
+        label="Product Size"
+        name="product_size"
+        register={register}
+        validation={{ required: true }}
+        options={productsSizes}
+      />
       {formState.errors.product_size && (
         <FormInputError>Product size must not be empty.</FormInputError>
       )}
