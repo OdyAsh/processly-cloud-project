@@ -277,13 +277,43 @@ h2.forbidden {
   padding: 0.5rem;
 }
 
-/************* OrdersPage.js *************/
-.col-center-content {
+
+/************* OrdersList.js *************/
+.orders-list {
   display: flex;
-  flex-direction: col;
+  flex-direction: column;
+  row-gap: 20px;
   justify-content: left;
+  padding-left: 20px; 
 }
 
+/************* OrderSummary.js *************/
+.summary-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  column-gap: 30px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 5%;
+  padding: 20px;
+  width: fit-content;
+}
+.summary-card:hover {
+  cursor: pointer;
+  background: rgba(0,0,0,0.2);
+}
+
+/* nothing to add in .left-summary-card */
+
+.order-img {
+  border-radius: 5%;
+}
+
+.right-summary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 
 @tailwind base;
 @tailwind components;

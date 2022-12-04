@@ -5,6 +5,8 @@ import FormInputError from "../../UI/form/FormInputError";
 import SelectInput from "../../UI/form/SelectInput";
 import TextAreaInput from "../../UI/form/TextAreaInput";
 import TextInput from "../../UI/form/TextInput";
+import GetDate from "../utils/GetDate";
+import GetTime from "../utils/GetTime";
 
 /*
   data to consider in form:
@@ -20,12 +22,12 @@ const MakeOrderForm = (props) => {
 
   const authContext = useContext(AuthContext);
 
-  // const productsTypesTmp = props.products.map((s) => {
+  // const productsNamesTmp = props.products.map((s) => {
   //   return { name: s.name, value: s._id };
   // }); // to do: uncomment this and delete dummy list below
-  // const [productsTypes] = useState(productsTypesTmp);
+  // const [productsNames] = useState(productsNamesTmp);
 
-  const [productsTypes] = useState([
+  const [productsNames] = useState([
     // dummy data
     { name: "aname", value: "aval" },
     { name: "Flag", value: "flagval" },
@@ -35,7 +37,7 @@ const MakeOrderForm = (props) => {
   const [spn, setSPN] = useState(""); // useState(props.products[0].name); // to do: uncomment this
   const [spq, setSPQ] = useState(1);
   const [spSizes, setSPSizes] = useState(["xs"]); // useState(props.products[0].sizes);
-  const [spImg, setSPImg] = useState("https://i.imgur.com/ShCVXml.png"); // useState(props.products[0].imgURL);
+  const [spImg, setSPImg] = useState("https://i.imgur.com/ShCVXml.png"); // useState(props.products[0].imgUrl);
   const [spPrice, setSPPrice] = useState(2); // useState(props.products[0].price);
   const productsSizes = [
     // dummy data
@@ -50,7 +52,7 @@ const MakeOrderForm = (props) => {
     let spnTmp = e.target.options[e.target.selectedIndex].text; // creating spnTmp, as useState is 1 cycle late, so if we used "spn" in this function, it will be hold the previous "spn" value
     setSPN(spnTmp);
     // setSPSizes(props.products[e.target.selectedIndex].sizes); to do: uncomment this and delete dummy data
-    // setSPImg(props.products[e.target.selectedIndex].imgURL);
+    // setSPImg(props.products[e.target.selectedIndex].imgUrl);
     // setSPPrice(props.products[e.target.selectedIndex].price);
     setSPSizes(productsSizes);
 
@@ -77,6 +79,11 @@ const MakeOrderForm = (props) => {
 
   const submitHandler = async (formData) => {
     try {
+      formData["userName"] = authContext.username;
+      formData["imgUrl"] = spImg; // adding product's img URL to Order object
+      formData["date"] = GetDate(); // adding order's date and time to Order object
+      formData["time"] = GetTime();
+      formData["status"] = "pending"; // adding order's status as "pending"
       console.log(formData);
       const response = await fetch("http://localhost:5000/orders", {
         method: "POST",
@@ -105,15 +112,15 @@ const MakeOrderForm = (props) => {
       <div className="form-top">
         <div className="form-left">
           <SelectInput
-            label="Product Type"
-            name="product_type"
+            label="Product Name"
+            name="productName"
             register={register}
             required={true}
-            options={productsTypes}
+            options={productsNames}
             onChange={onPtChange}
           />
-          {formState.errors.product_type && (
-            <FormInputError>Product type must not be empty.</FormInputError>
+          {formState.errors.productName && (
+            <FormInputError>Product name must not be empty.</FormInputError>
           )}
 
           <TextInput
@@ -131,13 +138,13 @@ const MakeOrderForm = (props) => {
           {spn.toLowerCase() === "flag" && (
             <SelectInput
               label="Product Size"
-              name="product_size"
+              name="productSize"
               register={register}
               validation={{ required: true }}
               options={spSizes}
             />
           )}
-          {formState.errors.product_size && (
+          {formState.errors.productSize && (
             <FormInputError>Product size must not be empty.</FormInputError>
           )}
         </div>
@@ -155,7 +162,7 @@ const MakeOrderForm = (props) => {
       <div className="form-bottom">
         <TextAreaInput
           label="Delivery Note"
-          name="delivery_note"
+          name="deliveryNote"
           register={register}
         />
         {formState.errors.description && (
@@ -163,12 +170,9 @@ const MakeOrderForm = (props) => {
         )}
 
         <label
-          name="total_price"
+          name="totalPrice"
           className="form-label"
         >{`Total Price: ${spPrice} x ${spq} = ${spPrice * spq} EGP`}</label>
-        {formState.errors.total_price && (
-          <FormInputError>Price must be greater than 0</FormInputError>
-        )}
 
         <button type="submit" className="form-button">
           Create Order

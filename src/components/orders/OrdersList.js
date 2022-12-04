@@ -1,10 +1,22 @@
+import { useNavigate } from "react-router-dom";
 import OrderSummary from "./OrderSummary";
 
 const OrdersList = (props) => {
+  const navigate = useNavigate();
+  const goToAnOrder = (event, orderId) => {
+    // navigate to a specific order
+    console.log(orderId);
+    navigate(`orders/view/${orderId}`);
+  };
+
   return (
-    <div className="grid grid-cols-2 gap-5 justify-center items-center">
-      {props.products.map((p) => (
-        <OrderSummary product={p} key={p._id} />
+    <div className="orders-list">
+      {props.orders.map((o) => (
+        <OrderSummary
+          order={o}
+          key={o._id}
+          onClick={(e) => goToAnOrder(e, o._id)}
+        />
       ))}
     </div>
   );
