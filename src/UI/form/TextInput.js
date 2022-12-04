@@ -5,8 +5,8 @@ const TextInput = (props) => {
       <input
         className="input-box"
         type={props.type}
+        value={props.value}
         {...props.register(props.name, props.validation)}
-        onChange={props.onChange}
       />
     </div>
   );

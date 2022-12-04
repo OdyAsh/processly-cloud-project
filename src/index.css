@@ -18,7 +18,7 @@ code {
   min-height: 100vh;
   flex-direction: column;
   justify-content: flex-start;
-  row-gap: 20px;
+  row-gap: 40px;
 }
 
 
@@ -188,11 +188,47 @@ code {
 /************* MakeOrderForm.js *************/
 .form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 2.5rem;
   gap: 1.25rem;
+  --bg-opacity: 0.7;
+  background-color: rgb(0 0 0 / var(--bg-opacity));
+  border-radius: 3%;
+  box-shadow: 15px 15px 8px  rgba(0,0,0,0.6);
+}
+
+.form-top {
+  display: flex;
+  flex-direction: row;
+  column-gap: 3rem;
+}
+
+.form-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* nothing to add for form-right */
+
+.product-img {
+  border-radius: 5%;
+}
+
+.form-bottom {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+
+.form-button {
   --bg-opacity: 1;
-    background-color: rgb(31 41 55 / var(--bg-opacity));
+  background-color: white !important; /* button's bg color won't change if !important is not added */
+  border-radius: 0.75rem;
+  margin-top: 1rem /* 16px */;
+  padding: 0.5rem 2rem 0.5rem  2rem;
+  align-self: center;
 }
 
 .form-label {
