@@ -30,11 +30,11 @@ const MakeOrder = () => {
 
     const fetchProducts = async () => {
       try {
+        await sleep(1000);
         const response = await fetch("http://localhost:5000/products", {
           signal: fetchSignal,
         });
         const data = await response.json();
-        await sleep(1000);
         if (!response.ok) {
           throw Error(data.error);
         }

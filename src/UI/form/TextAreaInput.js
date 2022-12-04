@@ -4,7 +4,8 @@ const TextAreaInput = (props) => {
       <label className="text-white font-bold">{props.label}</label>
       <textarea
         className="rounded-lg min-w-[250px] p-2"
-        {...props.register(props.name, props.validation)}
+        value={props.value}
+        {...props.register(props.name, { onChange: props.onChange })}
       />
     </div>
   );

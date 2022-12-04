@@ -315,6 +315,22 @@ h2.forbidden {
   justify-content: space-around;
 }
 
+/************* OrderDetailsForm.js *************/
+/* most css in that .js file is taken from css used in MakeOrderForm.js */
+.form-label-and-sublabel {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.form-sublabel {
+  --text-opacity: 1;
+  color: rgb(255 255 255 / var(--text-opacity));
+  font-weight: 400;
+  font-size: 0.7rem;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,8 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
 const OrderSummary = (props) => {
-  console.log(props);
+  const navigate = useNavigate();
+  const goToAnOrder = () => {
+    // navigate to a specific order
+    navigate(`/orders/view/${props.order._id}`);
+    console.log(props.order._id);
+  };
+
   return (
-    <div className="summary-card" onClick={props.onClick}>
-      <div class="left-summary-card">
+    <div className="summary-card" onClick={goToAnOrder}>
+      <div className="left-summary-card">
         <img
           src={props.order.imgUrl}
           alt={props.order.productType}

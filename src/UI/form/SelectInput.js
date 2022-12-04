@@ -10,8 +10,11 @@ const SelectInput = (props) => {
         })}
       >
         {props.options.map((o) => (
-          <option value={o.value} key={o.value}>
-            {o.name}
+          <option
+            value={typeof o !== "string" ? o.value : o}
+            key={typeof o !== "string" ? o.value : o}
+          >
+            {typeof o !== "string" ? o.name : o}
           </option>
         ))}
       </select>

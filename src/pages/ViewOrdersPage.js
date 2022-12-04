@@ -51,7 +51,6 @@ const OrdersPage = () => {
         // after we set the orders' state, let's set the loading state to false
         setIsLoading(false);
       } catch (err) {
-        setIsLoading(false); // delete this
         console.log(err.message);
       }
     };
@@ -61,8 +60,8 @@ const OrdersPage = () => {
     setOrders([
       // delete this
       {
-        _id: "1",
-        userName: "2",
+        _id: "78",
+        userName: "anaUser",
         productName: "Flag",
         quantity: "3",
         size: "XS",

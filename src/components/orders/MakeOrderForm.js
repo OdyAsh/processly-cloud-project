@@ -22,39 +22,53 @@ const MakeOrderForm = (props) => {
 
   const authContext = useContext(AuthContext);
 
-  // const productsNamesTmp = props.products.map((s) => {
-  //   return { name: s.name, value: s._id };
+  // const productsNamesTmp = props.products.map((p) => {
+  //   return { name: p.name, value: p._id };
   // }); // to do: uncomment this and delete dummy list below
   // const [productsNames] = useState(productsNamesTmp);
 
   const [productsNames] = useState([
     // dummy data
-    { name: "aname", value: "aval" },
-    { name: "Flag", value: "flagval" },
+    { name: "aname", value: "1" },
+    { name: "Flag", value: "2" },
   ]);
 
-  // spn means selected product name
+  // spo, spn, and spq means selected product object, name, and quantity
+  const [spo, setSPO] = useState({});
   const [spn, setSPN] = useState(""); // useState(props.products[0].name); // to do: uncomment this
   const [spq, setSPQ] = useState(1);
-  const [spSizes, setSPSizes] = useState(["xs"]); // useState(props.products[0].sizes);
+  const [dn, setDn] = useState(""); // dn means Delivery Note
+  const [pSizes, setPSizes] = useState(["xs", "s", "dff"]); // useState(props.products[0].sizes);
+
+  let initialSize = "";
+  // if ('sizes' in props.products[0] && props.products[0].sizes.length > 0) {
+  //   initialSize = props.products[0].sizes[0];
+  // }
+  const [spSize, setSPSize] = useState(initialSize); // delete this and uncomment if logic above
+
   const [spImg, setSPImg] = useState("https://i.imgur.com/ShCVXml.png"); // useState(props.products[0].imgUrl);
   const [spPrice, setSPPrice] = useState(2); // useState(props.products[0].price);
-  const productsSizes = [
-    // dummy data
-    { name: "XS", value: 1 },
-    { name: "S", value: 2 },
-    { name: "M", value: 3 },
-    { name: "L", value: 4 },
-    { name: "XL", value: 5 },
-  ];
 
   const onPtChange = (e) => {
-    let spnTmp = e.target.options[e.target.selectedIndex].text; // creating spnTmp, as useState is 1 cycle late, so if we used "spn" in this function, it will be hold the previous "spn" value
+    let idx = e.target.selectedIndex;
+    let spnTmp = e.target.options[idx].text; // creating spnTmp, as useState is 1 cycle late, so if we used "spn" in this function, it will be hold the previous "spn" value
+    let spoTmp = props.products.find((obj) => {
+      return obj.name.toLowerCase() === spnTmp.toLowerCase();
+    });
+
+    setSPO(spoTmp);
     setSPN(spnTmp);
-    // setSPSizes(props.products[e.target.selectedIndex].sizes); to do: uncomment this and delete dummy data
-    // setSPImg(props.products[e.target.selectedIndex].imgUrl);
-    // setSPPrice(props.products[e.target.selectedIndex].price);
-    setSPSizes(productsSizes);
+
+    let pSizesTmp = [];
+    let spSizeTmp = "";
+    // if ('sizes' in spoTmp && spoTmp.sizes.length > 0) {
+    //   pSizesTmp = spoTmp.sizes;
+    //   spSizeTmp = spoTmp.sizes[0];
+    //   setSPSize(spSizeTmp);
+    // }
+    // setSPImg(props.products[idx].imgUrl);
+    // setSPPrice(props.products[idx].price);
+    setPSizes(pSizesTmp); // to do: delete this, and uncomment all of the above
 
     if (spnTmp.toLowerCase() === "flag") {
       // to do: remove this
@@ -62,7 +76,7 @@ const MakeOrderForm = (props) => {
     } else {
       setSPImg("https://i.imgur.com/ShCVXml.png");
     }
-    setSPPrice(4);
+    setSPPrice(spoTmp.price);
     return;
   };
 
@@ -77,14 +91,33 @@ const MakeOrderForm = (props) => {
     return;
   };
 
+  const onSzChange = (e) => {
+    let chosenSize = e.target.value;
+    setSPSize(chosenSize);
+  };
+
+  const onDnChange = (e) => {
+    let dnTmp = e.target.value;
+    setDn(dnTmp);
+  };
+
   const submitHandler = async (formData) => {
     try {
+      formData["productName"] = spn; // changing productName key, as it holds value of name (which is _id), while we want to store the actual name of the product
       formData["userName"] = authContext.username;
       formData["imgUrl"] = spImg; // adding product's img URL to Order object
       formData["date"] = GetDate(); // adding order's date and time to Order object
       formData["time"] = GetTime();
       formData["status"] = "pending"; // adding order's status as "pending"
+      formData["totalPrice"] = spPrice * spq; // adding total price of order
+      if (spSize === "") {
+        delete formData["productSize"];
+      }
+      if (dn === "") {
+        delete formData["deliveryNote"];
+      }
       console.log(formData);
+
       const response = await fetch("http://localhost:5000/orders", {
         method: "POST",
         headers: {
@@ -95,11 +128,9 @@ const MakeOrderForm = (props) => {
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         throw Error(data.error);
       }
-
       console.log(data);
     } catch (err) {
       console.log(err.message);
@@ -135,16 +166,17 @@ const MakeOrderForm = (props) => {
             <FormInputError>Product quantity must be stated</FormInputError>
           )}
 
-          {spn.toLowerCase() === "flag" && (
+          {pSizes.length > 0 && (
             <SelectInput
               label="Product Size"
               name="productSize"
               register={register}
-              validation={{ required: true }}
-              options={spSizes}
+              required={true}
+              onChange={onSzChange}
+              options={pSizes}
             />
           )}
-          {formState.errors.productSize && (
+          {pSizes.length > 0 && formState.errors.productSize && (
             <FormInputError>Product size must not be empty.</FormInputError>
           )}
         </div>
@@ -163,11 +195,10 @@ const MakeOrderForm = (props) => {
         <TextAreaInput
           label="Delivery Note"
           name="deliveryNote"
+          value={dn}
+          onChange={onDnChange}
           register={register}
         />
-        {formState.errors.description && (
-          <FormInputError>Product description must not be empty</FormInputError>
-        )}
 
         <label
           name="totalPrice"
