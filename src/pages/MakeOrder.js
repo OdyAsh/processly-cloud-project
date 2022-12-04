@@ -5,7 +5,7 @@ import MakeOrderForm from "../components/orders/MakeOrderForm";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // source: https://bobbyhadz.com/blog/react-sleep-function
 
-const content = (isLoading, suppliers) => {
+const content = (isLoading, products) => {
   if (isLoading) {
     return (
       <ColorRing // source: https://mhnpd.github.io/react-loader-spinner/docs/components/color-ring
@@ -19,11 +19,11 @@ const content = (isLoading, suppliers) => {
       />
     );
   }
-  return <MakeOrderForm suppliers={suppliers} />;
+  return <MakeOrderForm products={products} />;
 };
 
-const AddProductPage = () => {
-  const [suppliers, setSuppliers] = useState([]);
+const MakeOrder = () => {
+  const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const AddProductPage = () => {
           throw Error(data.error);
         }
 
-        setSuppliers(data.suppliers);
+        setProducts(data.products);
         setIsLoading(false);
       } catch (err) {
         console.log(err.message);
@@ -55,7 +55,7 @@ const AddProductPage = () => {
     };
   }, []);
 
-  return <div className="center-content">{content(isLoading, suppliers)}</div>;
+  return <div className="center-content">{content(isLoading, products)}</div>;
 };
 
-export default AddProductPage;
+export default MakeOrder;

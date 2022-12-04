@@ -186,7 +186,33 @@ code {
 
 
 /************* MakeOrderForm.js *************/
+.form {
+  display: flex;
+  flex-direction: row;
+  padding: 2.5rem;
+  gap: 1.25rem;
+  --bg-opacity: 1;
+    background-color: rgb(31 41 55 / var(--bg-opacity));
+}
 
+.form-label {
+  --text-opacity: 1;
+    color: rgb(255 255 255 / var(--text-opacity));
+    font-weight: 700;
+}
+
+.label-and-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.input-box {
+  border-radius: 0.5rem;
+  min-width: 250px;
+  padding: 0.5rem;
+}
 
 
 @tailwind base;

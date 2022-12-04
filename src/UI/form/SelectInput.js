@@ -1,9 +1,9 @@
 const SelectInput = (props) => {
   return (
-    <div className="flex flex-col justify-center gap-2">
-      <label className="text-white font-bold">{props.label}</label>
+    <div className="label-and-input">
+      <label className="form-label">{props.label}</label>
       <select
-        className="rounded-lg min-w-[250px] p-2"
+        className="input-box"
         onChange={props.onChange}
         {...props.register(props.name, {
           required: props.required,

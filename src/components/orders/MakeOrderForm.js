@@ -30,13 +30,11 @@ const MakeOrderForm = (props) => {
   const [selectedProductType, setSPT] = useState("");
 
   const productsSizes = [
-    [
-      { name: "XS", value: 1 },
-      { name: "S", value: 2 },
-      { name: "M", value: 3 },
-      { name: "L", value: 4 },
-      { name: "XL", value: 5 },
-    ],
+    { name: "XS", value: 1 },
+    { name: "S", value: 2 },
+    { name: "M", value: 3 },
+    { name: "L", value: 4 },
+    { name: "XL", value: 5 },
   ];
 
   const handleChange = (e) => {
@@ -70,51 +68,51 @@ const MakeOrderForm = (props) => {
   };
 
   return (
-    <form
-      className="flex  flex-col p-10 gap-5 bg-gray-800 w-fit"
-      onSubmit={handleSubmit(submitHandler)}
-    >
-      <SelectInput
-        label="Product Type"
-        name="product_type"
-        register={register}
-        required={true}
-        options={productsTypes}
-        onChange={handleChange}
-      />
-      {formState.errors.product_type && (
-        <FormInputError>Product type must not be empty.</FormInputError>
-      )}
-
-      <TextInput
-        label="Quantity"
-        type="number"
-        name="quantity"
-        register={register}
-        validation={{ required: true }}
-      />
-      {formState.errors.quantity && (
-        <FormInputError>Product quantity must be stated</FormInputError>
-      )}
-
-      {selectedProductType.toLowerCase() === "flag" && (
+    <form className="form" onSubmit={handleSubmit(submitHandler)}>
+      <div class="form-left">
         <SelectInput
-          label="Product Size"
-          name="product_size"
+          label="Product Type"
+          name="product_type"
+          register={register}
+          required={true}
+          options={productsTypes}
+          onChange={handleChange}
+        />
+        {formState.errors.product_type && (
+          <FormInputError>Product type must not be empty.</FormInputError>
+        )}
+
+        <TextInput
+          label="Quantity"
+          type="number"
+          name="quantity"
           register={register}
           validation={{ required: true }}
-          options={productsSizes}
         />
-      )}
-      {formState.errors.product_size && (
-        <FormInputError>Product size must not be empty.</FormInputError>
-      )}
+        {formState.errors.quantity && (
+          <FormInputError>Product quantity must be stated</FormInputError>
+        )}
+
+        {selectedProductType.toLowerCase() === "flag" && (
+          <SelectInput
+            label="Product Size"
+            name="product_size"
+            register={register}
+            validation={{ required: true }}
+            options={productsSizes}
+          />
+        )}
+        {formState.errors.product_size && (
+          <FormInputError>Product size must not be empty.</FormInputError>
+        )}
+      </div>
+
+      <div class="form-right"></div>
 
       <TextAreaInput
-        label="Description"
-        name="description"
+        label="Delivery Note"
+        name="delivery_note"
         register={register}
-        validation={{ required: true }}
       />
       {formState.errors.description && (
         <FormInputError>Product description must not be empty</FormInputError>
