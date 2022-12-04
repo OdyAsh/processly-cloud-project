@@ -3,7 +3,7 @@ import AuthProvider from "./store/AuthProvider";
 
 import MakeOrder from "./pages/MakeOrder";
 import HomePage from "./pages/HomePage";
-import ProductsPage from "./pages/ProductsPage";
+import OrdersPage from "./pages/OrdersPage";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import Layout from "./UI/layout/Layout";
@@ -16,7 +16,7 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/orders/view" element={<OrdersPage />} />
             <Route path="/products/:productId" element={<ProdutPage />} />
             <Route path="/orders/make" element={<MakeOrder />} />
             <Route path="/signup" element={<SignupPage />} />

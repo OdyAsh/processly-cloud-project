@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-/************* Layout of Navbar, main content, and footer *************/
+/************* Layout.js (of Navbar, main content, and footer) *************/
 .layout { /* source: https://stackoverflow.com/questions/33924655/position-last-flex-item-at-the-end-of-container */
   display: flex;
   min-height: 100vh;
@@ -21,8 +21,35 @@ code {
   row-gap: 40px;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 
-/************* Navigation Bar *************/
+/************* Forbidden.js *************/
+div.forbidden {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5rem;
+  align-items: center;
+  margin-top: 20vh; /* manually vertically center forbidden text */
+}
+h1.forbidden {
+  display: block;
+  font-size: 4vw;
+  line-height: 0;
+  font-weight: 700;
+}
+h2.forbidden {
+  display: block;
+  font-size: 3vw;
+  line-height: 0;
+  font-weight: 500;
+}
+
+
+/************* NavBar.js *************/
 .nav {
   display: flex;
   justify-content: space-around;
@@ -177,7 +204,7 @@ code {
 }
 
 /************* MakeOrder.js *************/
-.center-content {
+.row-center-content {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -248,6 +275,13 @@ code {
   border-radius: 0.5rem;
   min-width: 250px;
   padding: 0.5rem;
+}
+
+/************* OrdersPage.js *************/
+.col-center-content {
+  display: flex;
+  flex-direction: col;
+  justify-content: left;
 }
 
 

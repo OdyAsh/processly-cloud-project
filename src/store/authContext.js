@@ -1,12 +1,13 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 //We  define our context with empty data for better code completion later on
 const AuthContext = createContext({
-  username: '',
-  id: '',
-  token: '',
+  username: "",
+  id: "",
+  token: "",
+  role: "",
   login: (id, username, token) => {},
-  logout: () => {}
+  logout: () => {},
 });
 
 export default AuthContext;

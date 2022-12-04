@@ -20,7 +20,7 @@ const Navbar = () => {
       <ul className="nav-options">
         <NavItem to="/">Home</NavItem>
         <NavItem to="/orders/make">Make An Order</NavItem>
-        <NavItem to="/view-o">View Orders</NavItem>
+        <NavItem to="/orders/view">View Orders</NavItem>
         <NavItem to="/about">About</NavItem>
       </ul>
       <ul

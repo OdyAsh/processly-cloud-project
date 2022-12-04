@@ -6,11 +6,13 @@ const AuthProvider = (props) => {
   const [username, setUsername] = useState("");
   const [id, setID] = useState("");
   const [token, setToken] = useState("");
+  const [role, setRole] = useState("");
 
   const authContext = {
     username: username,
     id: id,
     token: token,
+    role: role,
     login: (id, username, token) => {
       setID(id);
       setUsername(username);
@@ -20,6 +22,7 @@ const AuthProvider = (props) => {
       setUsername("");
       setID("");
       setToken("");
+      setRole("");
     },
   };
   return (

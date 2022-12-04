@@ -1,30 +1,28 @@
-import { useState, useEffect } from "react";
-import { ColorRing } from "react-loader-spinner";
+import { useState, useEffect, useContext } from "react";
 
+import AuthContext from "../store/authContext";
 import MakeOrderForm from "../components/orders/MakeOrderForm";
-
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // source: https://bobbyhadz.com/blog/react-sleep-function
-
-const content = (isLoading, products) => {
-  if (isLoading) {
-    return (
-      <ColorRing // source: https://mhnpd.github.io/react-loader-spinner/docs/components/color-ring
-        visible={true}
-        height="200"
-        width="200"
-        ariaLabel="loading-arialabel"
-        wrapperStyle={{}}
-        wrapperClassName="loading-wrapper"
-        colors={["#1B9D2C", "#0841C2", "#B0C000", "#BD0105", "#1B9D2C"]} //green, red, blue, yellow, green
-      />
-    );
-  }
-  return <MakeOrderForm products={products} />;
-};
+import Forbidden from "../components/auth/Forbidden";
+import Loading from "../components/media/Loading";
 
 const MakeOrder = () => {
+  const authContext = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // source: https://bobbyhadz.com/blog/react-sleep-function
+
+  const content = (isLoading, products) => {
+    if (isLoading) {
+      return <Loading />;
+    }
+
+    if (false && authContext.role !== "client") {
+      // to do: remove "false &&"
+      return <Forbidden role={authContext.role} />;
+    }
+    return <MakeOrderForm products={products} />;
+  };
 
   useEffect(() => {
     const fetchAbortController = new AbortController();
@@ -55,7 +53,9 @@ const MakeOrder = () => {
     };
   }, []);
 
-  return <div className="center-content">{content(isLoading, products)}</div>;
+  return (
+    <div className="row-center-content">{content(isLoading, products)}</div>
+  );
 };
 
 export default MakeOrder;
