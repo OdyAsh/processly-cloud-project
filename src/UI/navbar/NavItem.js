@@ -8,6 +8,18 @@ const NavItem = (props) => {
     return <li className={`nav-button`}>{props.children}</li>;
   }
   if (props.className === "to-about") {
+    if ("externalLink" in props) {
+      return (
+        <a
+          href={props.externalLink}
+          className="span-hyperlink nav-make-line"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {props.children}
+        </a>
+      );
+    }
     return (
       <NavLink to={props.to} className="span-hyperlink nav-make-line">
         {props.children}

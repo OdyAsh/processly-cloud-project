@@ -9,15 +9,27 @@ const AboutPage = (props) => {
       <div className="h-grid" style={{ marginTop: "1rem" }}>
         <span>
           Since its inception in 2020 by&nbsp;
-          <NavItem to="/about" className="to-about">
+          <NavItem
+            to="/about"
+            className="to-about"
+            externalLink={"https://www.linkedin.com/in/ashrafharess/"}
+          >
             Ashraf
           </NavItem>
           ,&nbsp;
-          <NavItem to="/about" className="to-about">
+          <NavItem
+            to="/about"
+            className="to-about"
+            externalLink={"https://www.linkedin.com/in/bavshehata/"}
+          >
             Bavly
           </NavItem>
           , and&nbsp;
-          <NavItem to="/about" className="to-about">
+          <NavItem
+            to="/about"
+            className="to-about"
+            externalLink={"https://www.linkedin.com/in/farah-aymen-2ba8a71b2/"}
+          >
             Farah
           </NavItem>
           <br /> The company has made many impacts to various
