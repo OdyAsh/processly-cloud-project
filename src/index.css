@@ -128,7 +128,7 @@ h2.forbidden {
   width: 100vw;
   justify-content: center;
   align-items: center;
-  row-gap: 7rem;
+  row-gap: 4rem;
   margin-top: 2rem;
 }
 
@@ -143,6 +143,7 @@ h2.forbidden {
   width: 98%; /* rest of width is basically padding from left and right */
   flex-direction: row;
   justify-content: space-around;
+  margin-top: 3rem;
 }
 
 .home .h-grid h2 {
@@ -223,6 +224,7 @@ h2.forbidden {
   border-radius: 3%;
   box-shadow: 15px 15px 8px  rgba(0,0,0,0.6);
 }
+
 
 .form-top {
   display: flex;
@@ -317,19 +319,45 @@ h2.forbidden {
 
 /************* OrderDetailsForm.js *************/
 /* most css in that .js file is taken from css used in MakeOrderForm.js */
-.form-label-and-sublabel {
+.form-label-and-sublabel-col {
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 10px;
+}
+
+.form-label-and-sublabel-row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  align-self: center;
 }
 
 .form-sublabel {
   --text-opacity: 1;
   color: rgb(255 255 255 / var(--text-opacity));
   font-weight: 400;
-  font-size: 0.7rem;
+  font-size: 1rem;
 }
 
+.order-details-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.center-label {
+  align-self: center;
+}
+
+/************* AboutPage.js *************/
+/* most css in that .js file is taken from css used in HomePage.js */
+.home h3 {
+  display: block;
+  font-size: 1.8vw;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 0;
+}
 
 @tailwind base;
 @tailwind components;

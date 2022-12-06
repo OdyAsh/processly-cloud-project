@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react";
-import OrdersList from "../components/orders/OrdersList";
-import Loading from "../components/media/Loading";
-import AuthContext from "../store/authContext";
-import Forbidden from "../components/auth/Forbidden";
+import OrdersList from "../../components/orders/OrdersList";
+import Loading from "../../components/media/Loading";
+import AuthContext from "../../store/authContext";
+import Forbidden from "../../components/auth/Forbidden";
 
 const OrdersPage = () => {
   const authContext = useContext(AuthContext);
@@ -61,7 +61,7 @@ const OrdersPage = () => {
       // delete this
       {
         _id: "78",
-        userName: "anaUser",
+        username: "anaUser",
         productName: "Flag",
         quantity: "3",
         size: "XS",
@@ -74,7 +74,7 @@ const OrdersPage = () => {
       },
       {
         _id: "3",
-        userName: "4",
+        username: "4",
         productName: "kajfslj",
         quantity: "3",
         size: "XS",

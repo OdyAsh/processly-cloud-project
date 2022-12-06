@@ -104,7 +104,7 @@ const MakeOrderForm = (props) => {
   const submitHandler = async (formData) => {
     try {
       formData["productName"] = spn; // changing productName key, as it holds value of name (which is _id), while we want to store the actual name of the product
-      formData["userName"] = authContext.username;
+      formData["username"] = authContext.username;
       formData["imgUrl"] = spImg; // adding product's img URL to Order object
       formData["date"] = GetDate(); // adding order's date and time to Order object
       formData["time"] = GetTime();
@@ -137,7 +137,6 @@ const MakeOrderForm = (props) => {
     }
   };
 
-  console.log(spn);
   return (
     <form className="form" onSubmit={handleSubmit(submitHandler)}>
       <div className="form-top">

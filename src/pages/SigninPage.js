@@ -1,8 +1,12 @@
-import React from 'react';
-import SigninForm from '../components/auth/SigninForm';
+import React from "react";
+import SigninForm from "../components/auth/SigninForm";
 
 const SigninPage = () => {
-  return <SigninForm />;
+  return (
+    <div className="row-center-content">
+      <SigninForm />
+    </div>
+  );
 };
 
 export default SigninPage;

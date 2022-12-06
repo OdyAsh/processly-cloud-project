@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../store/authContext';
-import FormInputError from '../../UI/form/FormInputError';
-import TextInput from '../../UI/form/TextInput';
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../../store/authContext";
+import FormInputError from "../../UI/form/FormInputError";
+import TextInput from "../../UI/form/TextInput";
 
 const SigninForm = () => {
   const { register, handleSubmit, formState } = useForm();
@@ -13,12 +13,12 @@ const SigninForm = () => {
 
   const submitHandler = async (formData) => {
     try {
-      const response = await fetch('http://localhost:5000/auth/signin', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/auth/signin", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
@@ -28,20 +28,17 @@ const SigninForm = () => {
       }
 
       // invoke the login function in our auth context
-      authContext.login(data.userId, data.username, data.jwt);
+      authContext.login(data.userId, data.username, data.role, data.jwt);
 
       // navigate to the home page
-      navigate('/');
+      navigate("/");
     } catch (err) {
       console.log(err.message);
     }
   };
 
   return (
-    <form
-      className="flex  flex-col p-10 gap-5 bg-gray-800 w-fit"
-      onSubmit={handleSubmit(submitHandler)}
-    >
+    <form className="form" onSubmit={handleSubmit(submitHandler)}>
       <TextInput
         label="Username"
         type="text"
@@ -64,10 +61,7 @@ const SigninForm = () => {
         <FormInputError>Password must not be empty.</FormInputError>
       )}
 
-      <button
-        type="submit"
-        className="bg-white rounded-xl my-4 py-2 px-8 self-center"
-      >
+      <button type="submit" className="form-button">
         Sign in
       </button>
     </form>

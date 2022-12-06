@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 
-import AuthContext from "../store/authContext";
-import MakeOrderForm from "../components/orders/MakeOrderForm";
-import Forbidden from "../components/auth/Forbidden";
-import Loading from "../components/media/Loading";
+import AuthContext from "../../store/authContext";
+import MakeOrderForm from "../../components/orders/MakeOrderForm";
+import Forbidden from "../../components/auth/Forbidden";
+import Loading from "../../components/media/Loading";
 
 const MakeOrder = () => {
   const authContext = useContext(AuthContext);

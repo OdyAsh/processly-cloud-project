@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../store/authContext";
 import TextAreaInput from "../../UI/form/TextAreaInput";
@@ -6,7 +6,9 @@ import TextAreaInput from "../../UI/form/TextAreaInput";
 const OrderDetailsForm = (props) => {
   const { register } = useForm();
   const authContext = useContext(AuthContext);
-  const [dn, setDn] = useState("");
+  const [dn, setDn] = useState(
+    "deliveryNote" in props.order ? props.order.deliveryNote : ""
+  );
 
   const onDnChange = (e) => {
     let dnTmp = e.target.value;
@@ -40,29 +42,79 @@ const OrderDetailsForm = (props) => {
     }
   };
 
-  if ("deliveryNote" in props.order) {
-    let dnTmp = props.order.deliveryNote;
-    setDn(dnTmp);
-  }
+  const restOfBottomContent = () => {
+    if (
+      props.order.status !== "delivered" &&
+      props.order.status !== "cancelled"
+    ) {
+      return (
+        <>
+          <TextAreaInput
+            label="Delivery Note"
+            name="deliveryNote"
+            centerLabel={false}
+            value={dn}
+            onChange={onDnChange}
+            register={register}
+          />
+
+          <div className="order-details-buttons">
+            {"deliveryNote" in props.order &&
+              props.order.deliveryNote !== dn && (
+                <button
+                  type="submit"
+                  className="form-button"
+                  onChange={() => onOrderChange("update")}
+                >
+                  Update Order
+                </button>
+              )}
+
+            <button
+              type="submit"
+              className="form-button"
+              onChange={() => onOrderChange("cancel")}
+            >
+              Cancel Order
+            </button>
+          </div>
+        </>
+      );
+    } // create a static delivery note field (label) if order is delivered
+    return (
+      <>
+        <label className="form-sublabel center-label">
+          {" "}
+          Delivery Note: {dn}{" "}
+        </label>
+      </>
+    );
+  };
 
   return (
-    <form classname="form">
+    <form className="form">
       <div className="form-top">
         <div className="form-left">
-          <div className="form-label-and-sublabel">
-            <label className="form-label">Product Name</label>
-            <label className="form-sublabel">{props.order.productName}</label>
+          <div className="form-label-and-sublabel-col">
+            <label className="form-label center-label">Product Name</label>
+            <label className="form-sublabel center-label">
+              {props.order.productName}
+            </label>
           </div>
 
-          <div className="form-label-and-sublabel">
-            <label className="form-label"> Quantity</label>
-            <label className="form-sublabel">{props.order.quantity}</label>
+          <div className="form-label-and-sublabel-col">
+            <label className="form-label center-label"> Quantity</label>
+            <label className="form-sublabel center-label">
+              {props.order.quantity}
+            </label>
           </div>
 
           {"productSize" in props.order && (
-            <div className="form-label-and-sublabel">
-              <label className="form-label">Chosen Size</label>
-              <label className="form-sublabel">{props.order.productSize}</label>
+            <div className="form-label-and-sublabel-col">
+              <label className="form-label center-label">Chosen Size</label>
+              <label className="form-sublabel center-label">
+                {props.order.productSize}
+              </label>
             </div>
           )}
         </div>
@@ -76,42 +128,44 @@ const OrderDetailsForm = (props) => {
         </div>
       </div>
       <div className="form-bottom">
+        <div className="form-label-and-sublabel-row">
+          <label className="form-label center-label">Order ID:</label>
+          <label className="form-sublabel center-label">
+            {props.order._id}
+          </label>
+        </div>
+
+        <div className="form-label-and-sublabel-row">
+          <label className="form-label center-label">Creation Date:</label>
+          <label className="form-sublabel center-label">
+            {props.order.date}, {props.order.time.toLowerCase()}
+          </label>
+        </div>
+
         <label
           name="totalPrice"
-          className="form-label"
+          className="form-label center-label"
         >{`Total Price: ${props.order.totalPrice} EGP`}</label>
 
-        {(props.order.status !== "delivered" && (
-            <TextAreaInput
-              label="Delivery Note"
-              name="deliveryNote"
-              value={dn}
-              onChange={onDnChange}
-              register={register}
-            />
-          ) && (
-            <div className="order-details-buttons">
-              {props.order.deliveryNote !== dn && (
-                <button
-                  type="submit"
-                  className="form-button"
-                  onChange={() => onOrderChange("update")}
-                >
-                  Update Order
-                </button>
-              )}
+        <div className="form-label-and-sublabel-row">
+          <label className="form-label center-label">Status:</label>
+          <label
+            className="form-sublabel center-label"
+            style={{
+              color:
+                props.order.status === "delivered"
+                  ? "#15E915"
+                  : props.order.status === "cancelled"
+                  ? "#F81D1D"
+                  : "white",
+              fontWeight: "700",
+            }}
+          >
+            {props.order.status}
+          </label>
+        </div>
 
-              <button
-                type="submit"
-                className="form-button"
-                onChange={() => onOrderChange("cancel")}
-              >
-                Cancel Order
-              </button>
-            </div>
-          )) || ( // create a static delivery note field (label) if props.order.status is delivered
-          <label className="form-sub-label"> Delivery Note: {dn} </label>
-        )}
+        {restOfBottomContent()}
       </div>
     </form>
   );

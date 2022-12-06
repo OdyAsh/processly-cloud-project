@@ -15,22 +15,13 @@ const Gallery = (props) => {
       dynamicHeight // if you want height to change based on image
     >
       <div>
-        <img
-          src="https://media.istockphoto.com/photos/concept-picture-id1154231467"
-          alt=""
-        />
+        <img src={props.imgUrls[0]} alt="" />
       </div>
       <div>
-        <img
-          src="https://images.unsplash.com/photo-1656268164012-119304af0c69?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1112&q=80"
-          alt=""
-        />
+        <img src={props.imgUrls[1]} alt="" />
       </div>
       <div>
-        <img
-          src="https://images.unsplash.com/photo-1655745653127-4d6837baf958?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-          alt=""
-        />
+        <img src={props.imgUrls[2]} alt="" />
       </div>
     </Carousel>
   );
