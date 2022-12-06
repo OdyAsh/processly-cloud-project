@@ -29,7 +29,7 @@ const SigninForm = () => {
       }
 
       // invoke the login function in our auth context
-      authContext.login(data.userId, data.username, data.role, data.jwt);
+      authContext.login(data.userId, data.email, data.role, data.jwt);
 
       if (authContext.role === "client") {
         // navigate to the client's home page
@@ -49,14 +49,14 @@ const SigninForm = () => {
   return (
     <form className="form" onSubmit={handleSubmit(submitHandler)}>
       <TextInput
-        label="Username"
+        label="Email"
         type="text"
-        name="username"
+        name="email"
         register={register}
         validation={{ required: true }}
       />
-      {formState.errors.username && (
-        <FormInputError>Username must not be empty.</FormInputError>
+      {formState.errors.email && (
+        <FormInputError>Email must not be empty.</FormInputError>
       )}
 
       <TextInput

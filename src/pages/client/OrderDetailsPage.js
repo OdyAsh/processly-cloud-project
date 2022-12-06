@@ -8,7 +8,7 @@ const OrderDetailsPage = () => {
   const [order, setOrder] = useState({
     // to do: delete this dummy data and make it null
     _id: "1",
-    username: "anaUser",
+    email: "bavshehata@gmail.com",
     productName: "Flag",
     quantity: "3",
     productSize: "XS",

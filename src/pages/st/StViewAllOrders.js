@@ -11,7 +11,7 @@ const StViewAllOrders = () => {
     // to do: change below dummy data to []
     {
       _id: "78",
-      username: "anaUser",
+      email: "bavshehata@gmail.com",
       productName: "Flag",
       quantity: "3",
       size: "XS",
@@ -24,7 +24,7 @@ const StViewAllOrders = () => {
     },
     {
       _id: "3",
-      username: "4",
+      email: "ash@gmail.com",
       productName: "kajfslj",
       quantity: "3",
       size: "XS",
@@ -40,7 +40,7 @@ const StViewAllOrders = () => {
   const submitHandler = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/orders/${formData["username"]}`,
+        `http://localhost:5000/orders/${formData["email"]}`,
         {
           method: "POST",
           headers: {
@@ -67,9 +67,9 @@ const StViewAllOrders = () => {
       <div className="row-center-content">
         <form className="form" onSubmit={handleSubmit(submitHandler)}>
           <TextInput
-            label="Username"
+            label="Email"
             type="text"
-            name="username"
+            name="email"
             register={register}
             validation={{ required: false }}
           />

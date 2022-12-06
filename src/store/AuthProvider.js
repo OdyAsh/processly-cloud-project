@@ -3,24 +3,24 @@ import AuthContext from "./authContext";
 import { useState } from "react";
 
 const AuthProvider = (props) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [id, setID] = useState("");
   const [role, setRole] = useState("");
   const [token, setToken] = useState("");
 
   const authContext = {
-    username: username,
+    email: email,
     id: id,
     role: role,
     token: token,
-    login: (id, username, role, token) => {
+    login: (id, email, role, token) => {
       setID(id);
-      setUsername(username);
+      setEmail(email);
       setRole(role);
       setToken(token);
     },
     logout: () => {
-      setUsername("");
+      setEmail("");
       setID("");
       setRole("");
       setToken("");

@@ -49,14 +49,14 @@ const SignupForm = () => {
       )}
 
       <TextInput
-        label="Username"
+        label="Email"
         type="text"
-        name="username"
+        name="email"
         register={register}
         validation={{ required: true }}
       />
-      {formState.errors.username && (
-        <FormInputError>Username must not be empty.</FormInputError>
+      {formState.errors.email && (
+        <FormInputError>Email must not be empty.</FormInputError>
       )}
 
       <TextInput

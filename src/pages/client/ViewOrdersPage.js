@@ -61,7 +61,7 @@ const OrdersPage = () => {
       // delete this
       {
         _id: "78",
-        username: "anaUser",
+        email: "bavshehata@gmail.com",
         productName: "Flag",
         quantity: "3",
         size: "XS",
@@ -74,7 +74,7 @@ const OrdersPage = () => {
       },
       {
         _id: "3",
-        username: "4",
+        email: "ash@gmail.com",
         productName: "kajfslj",
         quantity: "3",
         size: "XS",
