@@ -9,9 +9,9 @@ const SignupForm = () => {
   const submitHandler = async (formData) => {
     try {
       if (location.pathname.includes("st/")) {
-        formData["role"] = "stm";
+        formData["role"] = "st";
       } else if (location.pathname.includes("wh/")) {
-        formData["role"] = "whm";
+        formData["role"] = "wh";
       } else {
         formData["role"] = "client";
       }
