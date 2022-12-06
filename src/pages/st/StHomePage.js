@@ -4,7 +4,7 @@ import AllowAccessToPage from "../../store/AllowAccessToPage";
 const StHomePage = () => {
   const navigate = useNavigate();
   if (AllowAccessToPage("st")) {
-    navigate("signin");
+    navigate("/st/signin");
   }
   return (
     <div className="row-center-content">

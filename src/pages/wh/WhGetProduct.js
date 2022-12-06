@@ -4,7 +4,7 @@ import AllowAccessToPage from "../../store/AllowAccessToPage";
 const WhGetProduct = () => {
   const navigate = useNavigate();
   if (AllowAccessToPage("wh")) {
-    navigate("signin");
+    navigate("/wh/signin");
   }
   // your-logic-here
 

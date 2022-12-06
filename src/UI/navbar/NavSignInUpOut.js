@@ -12,7 +12,7 @@ const NavSignInUpOut = (props) => {
           (authContext.token && "nav-hide-element") || "nav-not-signed"
         }
       >
-        <NavItem to={`${urlPrefix}/signin`}>Sign In</NavItem>
+        <NavItem to={`${urlPrefix}signin`}>Sign In</NavItem>
         {props.portal === "/" && (
           <>
             <NavItem className="slash">&nbsp; / &nbsp;</NavItem>
@@ -23,7 +23,7 @@ const NavSignInUpOut = (props) => {
       <ul className={(authContext.token && "nav-signed") || "nav-hide-element"}>
         <NavItem>Welcome, {authContext.name}</NavItem>
         <NavItem className="slash">&nbsp; / &nbsp;</NavItem>
-        <NavItem to={`${urlPrefix}/`} className="signed-out">
+        <NavItem to={`${urlPrefix}`} className="signed-out">
           Sign out
         </NavItem>
       </ul>

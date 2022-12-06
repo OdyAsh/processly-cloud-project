@@ -116,7 +116,6 @@ const MakeOrderForm = (props) => {
       if (dn === "") {
         delete formData["deliveryNote"];
       }
-      console.log(formData);
 
       const response = await fetch("http://localhost:5000/orders", {
         method: "POST",

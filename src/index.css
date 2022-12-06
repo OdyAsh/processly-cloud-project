@@ -279,6 +279,16 @@ h2.forbidden {
   padding: 0.5rem;
 }
 
+.form-input-error {
+  --bg-opacity: 1;
+    background-color: rgb(153 27 27 / var(--bg-opacity));
+    color: white;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    min-width: 250px;
+    padding: 0.5rem;
+}
+
 
 /************* OrdersList.js *************/
 .orders-list {
@@ -357,6 +367,26 @@ h2.forbidden {
   font-weight: 500;
   font-style: italic;
   line-height: 0;
+}
+
+/************* StViewAllOrders.js *************/
+.view-all-orders {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4rem;
+}
+
+.view-all-orders .bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.view-all-orders .bottom .grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem;
+  justify-items: center;
+  justify-content: center;
 }
 
 @tailwind base;
