@@ -3,7 +3,7 @@ import AllowAccessToPage from "../../store/AllowAccessToPage";
 
 const WhHomePage = () => {
   const navigate = useNavigate();
-  if (AllowAccessToPage("wh")) {
+  if (!AllowAccessToPage("wh")) {
     navigate("/wh/signin");
   }
 

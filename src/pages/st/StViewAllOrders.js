@@ -39,7 +39,7 @@ const StViewAllOrders = () => {
       status: "pending",
     },
   ]);
-  if (!AllowAccessToPage("st")) {
+  if (!!AllowAccessToPage("st")) {
     navigate("/st/signin");
   }
 

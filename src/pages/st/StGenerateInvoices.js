@@ -3,7 +3,7 @@ import AllowAccessToPage from "../../store/AllowAccessToPage";
 
 const StGenerateInvoices = () => {
   const navigate = useNavigate();
-  if (AllowAccessToPage("st")) {
+  if (!AllowAccessToPage("st")) {
     navigate("/st/signin");
   }
 
