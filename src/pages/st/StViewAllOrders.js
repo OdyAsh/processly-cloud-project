@@ -1,14 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import AuthContext from "../../store/authContext";
-import AllowAccessToPage from "../../store/AllowAccessToPage";
 import TextInput from "./../../UI/form/TextInput";
 import OrdersList from "../../components/orders/OrdersList";
 
 const StViewAllOrders = () => {
   const authContext = useContext(AuthContext);
-  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [orders, setOrders] = useState([
     // to do: change below dummy data to []
@@ -39,9 +36,6 @@ const StViewAllOrders = () => {
       status: "pending",
     },
   ]);
-  if (!!AllowAccessToPage("st")) {
-    navigate("/st/signin");
-  }
 
   const submitHandler = async (formData) => {
     try {

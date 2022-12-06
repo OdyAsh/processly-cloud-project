@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../store/authContext";
 import FormInputError from "../../UI/form/FormInputError";
 import TextInput from "../../UI/form/TextInput";
+import { useLocation } from "react-router-dom";
 
 const SigninForm = () => {
   const { register, handleSubmit, formState } = useForm();
-
+  const location = useLocation();
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 

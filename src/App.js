@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthProvider from "./store/AuthProvider";
+import PrivateRoutes from "./components/auth/PrivateRoutes";
 
 import Layout from "./UI/layout/Layout";
 
@@ -40,21 +41,28 @@ const App = () => {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/about" element={<AboutPage />} />
 
-            <Route path="/st" element={<StHomePage />} />
-            <Route path="/st/view-all-orders" element={<StViewAllOrders />} />
-            <Route path="/st/generate-report" element={<StGenerateReport />} />
-            <Route
-              path="/st/generate-invoices"
-              element={<StGenerateInvoices />}
-            />
-            <Route path="/st/send-reminders" element={<StSendReminders />} />
+            <Route element={<PrivateRoutes role="st" />}>
+              <Route path="/st" element={<StHomePage />} />
+              <Route path="/st/view-all-orders" element={<StViewAllOrders />} />
+              <Route
+                path="/st/generate-report"
+                element={<StGenerateReport />}
+              />
+              <Route
+                path="/st/generate-invoices"
+                element={<StGenerateInvoices />}
+              />
+              <Route path="/st/send-reminders" element={<StSendReminders />} />
+            </Route>
             <Route path="/st/signin" element={<SigninPage />} />
 
-            <Route path="/wh/" element={<WhHomePage />} />
-            <Route path="/wh/add-product" element={<WhAddProduct />} />
-            <Route path="/wh/get-product" element={<WhGetProduct />} />
-            <Route path="/wh/remove-product" element={<WhRemoveProduct />} />
-            <Route path="/wh/update-product" element={<WhUpdateProduct />} />
+            <Route element={<PrivateRoutes role="wh" />}>
+              <Route path="/wh/" element={<WhHomePage />} />
+              <Route path="/wh/add-product" element={<WhAddProduct />} />
+              <Route path="/wh/get-product" element={<WhGetProduct />} />
+              <Route path="/wh/remove-product" element={<WhRemoveProduct />} />
+              <Route path="/wh/update-product" element={<WhUpdateProduct />} />
+            </Route>
             <Route path="/wh/signin" element={<SigninPage />} />
           </Routes>
         </Layout>
