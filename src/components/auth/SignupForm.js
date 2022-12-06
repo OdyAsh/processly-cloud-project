@@ -1,14 +1,16 @@
 import { useForm } from "react-hook-form";
 import FormInputError from "../../UI/form/FormInputError";
 import TextInput from "../../UI/form/TextInput";
+import { useLocation } from "react-router-dom";
 
 const SignupForm = () => {
   const { register, handleSubmit, formState } = useForm();
+  const location = useLocation();
   const submitHandler = async (formData) => {
     try {
-      if (window.location.href.includes("st/")) {
+      if (location.pathname.includes("st/")) {
         formData["role"] = "stm";
-      } else if (window.location.href.includes("wh/")) {
+      } else if (location.pathname.includes("wh/")) {
         formData["role"] = "whm";
       } else {
         formData["role"] = "client";

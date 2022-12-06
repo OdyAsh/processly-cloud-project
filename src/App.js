@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthProvider from "./store/AuthProvider";
 
+import Layout from "./UI/layout/Layout";
+
 import HomePage from "./pages/client/HomePage";
 import MakeAnOrderPage from "./pages/client/MakeAnOrderPage";
 import ViewOrdersPage from "./pages/client/ViewOrdersPage";
@@ -8,7 +10,8 @@ import OrderDetailsPage from "./pages/client/OrderDetailsPage";
 import AboutPage from "./pages/client/AboutPage";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
-import Layout from "./UI/layout/Layout";
+
+import StHomePage from "./pages/st/StHomePage";
 
 const App = () => {
   return (
@@ -26,6 +29,9 @@ const App = () => {
             <Route path="/signin" element={<SigninPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/about" element={<AboutPage />} />
+
+            <Route path="/st" element={<StHomePage />} />
+            <Route path="/st/signin" element={<SigninPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

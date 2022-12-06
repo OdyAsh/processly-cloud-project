@@ -30,8 +30,16 @@ const SigninForm = () => {
       // invoke the login function in our auth context
       authContext.login(data.userId, data.username, data.role, data.jwt);
 
-      // navigate to the home page
-      navigate("/");
+      if (authContext.role === "client") {
+        // navigate to the client's home page
+        navigate("/");
+      } else if (authContext.role === "st") {
+        // navigate to the sales-team's home page
+        navigate("/st");
+      } else if (authContext.role === "wh") {
+        // navigate to the warehouse's home page
+        navigate("/wh");
+      }
     } catch (err) {
       console.log(err.message);
     }
