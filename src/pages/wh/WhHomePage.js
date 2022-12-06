@@ -1,17 +1,11 @@
-import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../store/authContext";
+import AllowAccessToPage from "../../store/AllowAccessToPage";
 
 const WhHomePage = () => {
-  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (false && authContext.role !== "wh") {
-      // to do: remove "false &&"
-      navigate("signin");
-    }
-  }, [navigate, authContext.role]);
+  if (AllowAccessToPage("wh")) {
+    navigate("signin");
+  }
 
   return (
     <div className="row-center-content">
