@@ -40,7 +40,7 @@ const StViewAllOrders = () => {
   const submitHandler = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/orders/${formData["email"]}`,
+        `https://processly101.herokuapp.com/orders/${formData["email"]}`,
         {
           method: "POST",
           headers: {

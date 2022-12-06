@@ -33,9 +33,12 @@ const OrdersPage = () => {
     const fetchOrders = async () => {
       try {
         // send an HTTP GET request to the get orders route we defined in our Express REST API
-        const response = await fetch("http://localhost:5000/orders/:userid", {
-          signal: fetchSignal,
-        });
+        const response = await fetch(
+          "https://processly101.herokuapp.com/orders/:userid",
+          {
+            signal: fetchSignal,
+          }
+        );
         // parse the response content to JSON and store it into data variable
         const data = await response.json();
         await sleep(1000);

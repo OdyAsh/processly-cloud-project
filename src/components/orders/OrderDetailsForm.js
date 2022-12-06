@@ -19,7 +19,7 @@ const OrderDetailsForm = (props) => {
   const onOrderChange = async (task) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/orders/${props.order._id}`,
+        `https://processly101.herokuapp.com/orders/${props.order._id}`,
         {
           method: "PUT",
           headers: {

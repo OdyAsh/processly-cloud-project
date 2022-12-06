@@ -11,6 +11,7 @@ import OrderDetailsPage from "./pages/client/OrderDetailsPage";
 import AboutPage from "./pages/client/AboutPage";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
+import SignOutPage from "./pages/SignOutPage";
 
 import StHomePage from "./pages/st/StHomePage";
 import StViewAllOrders from "./pages/st/StViewAllOrders";
@@ -39,6 +40,7 @@ const App = () => {
             />
             <Route path="/signin" element={<SigninPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/signout" element={<SignOutPage />} />
             <Route path="/about" element={<AboutPage />} />
 
             <Route element={<PrivateRoutes role="st" />}>

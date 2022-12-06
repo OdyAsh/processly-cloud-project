@@ -35,9 +35,6 @@ const NavItem = (props) => {
       </NavLink>
     );
   }
-  if (props.className === "signed-out") {
-    authContext.logout();
-  }
   return (
     <NavLink key={props.to} to={props.to}>
       <li

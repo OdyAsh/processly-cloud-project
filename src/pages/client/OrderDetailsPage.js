@@ -47,7 +47,7 @@ const OrderDetailsPage = () => {
       try {
         await sleep(1000);
         const response = await fetch(
-          `http://localhost:5000/orders/${orderId}`,
+          `https://processly101.herokuapp.com/orders/${orderId}`,
           {
             signal: fetchSignal,
           }
