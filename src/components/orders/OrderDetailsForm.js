@@ -22,7 +22,7 @@ const OrderDetailsForm = (props) => {
       let statusTmp = task === "update" ? props.order.status : "cancelled";
       let dnTmp = task === "update" ? dn : props.order.deliveryNote;
       const response = await fetch(
-        `https://processly101.herokuapp.com/orders/${props.order._id}`,
+        `https://processly101.herokuapp.com/orders?orderId=${props.order.orderId}`,
         {
           method: "PUT",
           headers: {
@@ -155,7 +155,7 @@ const OrderDetailsForm = (props) => {
         <div className="form-label-and-sublabel-row">
           <label className="form-label center-label">Order ID:</label>
           <label className="form-sublabel center-label">
-            {props.order._id}
+            {props.order.orderId}
           </label>
         </div>
 
