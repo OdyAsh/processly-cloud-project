@@ -2,11 +2,12 @@ import { createContext } from "react";
 
 //We  define our context with empty data for better code completion later on
 const AuthContext = createContext({
-  email: "",
   id: "",
+  name: "",
+  email: "",
   token: "",
   role: "",
-  login: (id, email, role, token) => {},
+  login: (id, name, email, role, token) => {},
   logout: () => {},
 });
 

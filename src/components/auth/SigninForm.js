@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 
 const SigninForm = () => {
   const { register, handleSubmit, formState } = useForm();
-  const location = useLocation();
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -30,17 +29,25 @@ const SigninForm = () => {
       if (!response.ok) {
         throw Error(data.error);
       }
-
+      console.log("signed in... data:");
+      console.log(data);
       // invoke the login function in our auth context
-      authContext.login(data.userId, data.email, data.role, data.jwt);
+      authContext.login(
+        data.userId,
+        data.name,
+        data.email,
+        data.role,
+        data.jwt
+      );
 
-      if (authContext.role === "client") {
+      // have to use "data.role" not "authContext.role", as "authContext.login()" makes "authContext" update in the next render, which happens after the render of this page ends
+      if (data.role === "client") {
         // navigate to the client's home page
         navigate("/");
-      } else if (authContext.role === "st") {
+      } else if (data.role === "st") {
         // navigate to the sales-team's home page
         navigate("/st");
-      } else if (authContext.role === "wh") {
+      } else if (data.role === "wh") {
         // navigate to the warehouse's home page
         navigate("/wh");
       }

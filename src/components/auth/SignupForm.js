@@ -51,6 +51,7 @@ const SignupForm = () => {
       } else {
         formData["role"] = "client";
       }
+      console.log(formData);
       const response = await fetch(
         "https://processly101.herokuapp.com/auth/signup",
         {

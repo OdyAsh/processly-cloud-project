@@ -57,6 +57,7 @@ const App = () => {
               <Route path="/st/send-reminders" element={<StSendReminders />} />
             </Route>
             <Route path="/st/signin" element={<SigninPage />} />
+            <Route path="/st/signout" element={<SignOutPage />} />
 
             <Route element={<PrivateRoutes role="wh" />}>
               <Route path="/wh/" element={<WhHomePage />} />
@@ -66,6 +67,7 @@ const App = () => {
               <Route path="/wh/update-product" element={<WhUpdateProduct />} />
             </Route>
             <Route path="/wh/signin" element={<SigninPage />} />
+            <Route path="/wh/signout" element={<SignOutPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

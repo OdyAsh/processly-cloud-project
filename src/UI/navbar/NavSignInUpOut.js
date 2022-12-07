@@ -23,7 +23,7 @@ const NavSignInUpOut = (props) => {
       <ul className={(authContext.token && "nav-signed") || "nav-hide-element"}>
         <NavItem>Welcome, {authContext.name}</NavItem>
         <NavItem className="slash">&nbsp; / &nbsp;</NavItem>
-        <NavItem to={`/signout`}>Sign out</NavItem>
+        <NavItem to={`${urlPrefix}signout`}>Sign out</NavItem>
       </ul>
     </>
   );
