@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import AuthContext from "../../store/authContext";
 import FormInputError from "../../UI/form/FormInputError";
 import TextInput from "../../UI/form/TextInput";
-import { useLocation } from "react-router-dom";
 
 const SigninForm = () => {
   const { register, handleSubmit, formState } = useForm();
@@ -40,6 +41,18 @@ const SigninForm = () => {
         data.jwt
       );
 
+      toast.success("Signed in successfully! 💪", {
+        // shows toast which is housed by the container ToastContainer in App.js
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
       // have to use "data.role" not "authContext.role", as "authContext.login()" makes "authContext" update in the next render, which happens after the render of this page ends
       if (data.role === "client") {
         // navigate to the client's home page
@@ -53,6 +66,17 @@ const SigninForm = () => {
       }
     } catch (err) {
       console.log(err.message);
+      toast.error(err.message, {
+        // shows toast which is housed by the container ToastContainer in App.js
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 

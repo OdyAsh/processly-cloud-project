@@ -1,4 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import AuthProvider from "./store/AuthProvider";
 import PrivateRoutes from "./components/auth/PrivateRoutes";
 
@@ -70,6 +73,19 @@ const App = () => {
             <Route path="/wh/signout" element={<SignOutPage />} />
           </Routes>
         </Layout>
+        <ToastContainer
+          position="bottom-center"
+          className="toast-position"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </BrowserRouter>
     </AuthProvider>
   );

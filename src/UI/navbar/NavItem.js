@@ -1,10 +1,30 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../../store/authContext";
 
 const NavItem = (props) => {
   const authContext = useContext(AuthContext);
-  if (props.className === "slash") {
+  const navigate = useNavigate();
+
+  const signout = (portal) => {
+    authContext.logout();
+    toast.success("Signed out successfully...", {
+      // shows toast which is housed by the container ToastContainer in App.js
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    navigate(portal);
+  };
+
+  if ("notClickable" in props) {
     return (
       <li key={props.to} className={`nav-button`}>
         {props.children}
@@ -34,6 +54,9 @@ const NavItem = (props) => {
         {props.children}
       </NavLink>
     );
+  }
+  if ("signOut" in props) {
+    signout(props.portal);
   }
   return (
     <NavLink key={props.to} to={props.to}>

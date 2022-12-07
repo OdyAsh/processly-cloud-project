@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import AuthContext from "../../store/authContext";
 import TextAreaInput from "../../UI/form/TextAreaInput";
 
@@ -14,10 +15,12 @@ const OrderDetailsForm = (props) => {
     let dnTmp = e.target.value;
     setDn(dnTmp);
   };
-  console.log("from OrderDetailsForm.js");
-  console.log(props);
+
   const onOrderChange = async (task) => {
+    // updates order based on delivery note or cancellation
     try {
+      let statusTmp = task === "update" ? props.order.status : "cancelled";
+      let dnTmp = task === "update" ? dn : props.order.deliveryNote;
       const response = await fetch(
         `https://processly101.herokuapp.com/orders/${props.order._id}`,
         {
@@ -26,19 +29,40 @@ const OrderDetailsForm = (props) => {
             "Content-Type": "application/json",
             Authorization: `BEARER ${authContext.token}`,
           },
-          body: JSON.stringify(
-            task === "update" ? { deliveryNote: dn } : { status: "canceled" }
-          ),
+          body: JSON.stringify({ deliveryNote: dnTmp, status: statusTmp }),
         }
       );
 
       const data = await response.json();
+
       if (!response.ok) {
         throw Error(data.error);
       }
+
+      console.log("from OrderDetailsForm.js:");
       console.log(data);
+      toast.success("Order made successfully! 💪", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (err) {
       console.log(err.message);
+      toast.error(err.message, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -64,7 +88,7 @@ const OrderDetailsForm = (props) => {
                 <button
                   type="submit"
                   className="form-button"
-                  onChange={() => onOrderChange("update")}
+                  onClick={() => onOrderChange("update")}
                 >
                   Update Order
                 </button>
@@ -73,7 +97,7 @@ const OrderDetailsForm = (props) => {
             <button
               type="submit"
               className="form-button"
-              onChange={() => onOrderChange("cancel")}
+              onClick={() => onOrderChange("cancel")}
             >
               Cancel Order
             </button>

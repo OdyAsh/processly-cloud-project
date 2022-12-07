@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+/************* App.js *************/
+.toast-position {
+  bottom: 10vh !important;
+}
+
+
 /************* Layout.js (of Navbar, main content, and footer) *************/
 .layout { /* source: https://stackoverflow.com/questions/33924655/position-last-flex-item-at-the-end-of-container */
   display: flex;
@@ -26,6 +32,7 @@ main {
   flex-direction: column;
   flex-grow: 1;
 }
+
 
 /************* Forbidden.js *************/
 div.forbidden {

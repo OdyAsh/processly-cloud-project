@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import AuthContext from "../../store/authContext";
 import FormInputError from "../../UI/form/FormInputError";
 import SelectInput from "../../UI/form/SelectInput";
@@ -33,8 +34,7 @@ const MakeOrderForm = (props) => {
     { name: "Flag", value: "2" },
   ]);
 
-  // spo, spn, and spq means selected product object, name, and quantity
-  const [spo, setSPO] = useState({});
+  // spn, and spq means selected product name, and quantity
   const [spn, setSPN] = useState(""); // useState(props.products[0].name); // to do: uncomment this
   const [spq, setSPQ] = useState(1);
   const [dn, setDn] = useState(""); // dn means Delivery Note
@@ -55,10 +55,7 @@ const MakeOrderForm = (props) => {
     let spoTmp = props.products.find((obj) => {
       return obj.name.toLowerCase() === spnTmp.toLowerCase();
     });
-
-    setSPO(spoTmp);
     setSPN(spnTmp);
-
     let pSizesTmp = [];
     let spSizeTmp = "";
     // if ('sizes' in spoTmp && spoTmp.sizes.length > 0) {
@@ -134,8 +131,29 @@ const MakeOrderForm = (props) => {
         throw Error(data.error);
       }
       console.log(data);
+
+      toast.success("Order made successfully! 💪", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (err) {
       console.log(err.message);
+      toast.error(err.message, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
