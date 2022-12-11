@@ -1,13 +1,34 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import OrdersList from "../../components/orders/OrdersList";
 import Loading from "../../components/media/Loading";
-import AuthContext from "../../store/authContext";
-import Forbidden from "../../components/auth/Forbidden";
 
 const OrdersPage = () => {
-  const authContext = useContext(AuthContext);
   // let's define a state for orders
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([
+    // to do: delete this and make it []
+    {
+      orderId: "78",
+      email: "bavshehata@gmail.com",
+      productName: "Flag",
+      quantity: "3",
+      size: "XS",
+      deliveryNote: "random text yaaaaaay",
+      totalPrice: "100",
+      imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
+      status: "pending",
+    },
+    {
+      orderId: "3",
+      email: "ash@gmail.com",
+      productName: "kajfslj",
+      quantity: "3",
+      size: "XS",
+      deliveryNote: "random text yaaaaaay",
+      totalPrice: "100",
+      imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
+      status: "pending",
+    },
+  ]);
 
   // let's define a state for loading
   const [isLoading, setIsLoading] = useState(true);
@@ -17,11 +38,6 @@ const OrdersPage = () => {
   const content = (isLoading, orders) => {
     if (isLoading) {
       return <Loading />;
-    }
-
-    if (false && authContext.role !== "client") {
-      // to do: remove "false &&"
-      return <Forbidden role={authContext.role} />;
     }
     return <OrdersList orders={orders} />;
   };
@@ -59,32 +75,7 @@ const OrdersPage = () => {
     };
 
     // fetchOrders(); // to do: uncomment this
-    setIsLoading(false); // delete this
-    setOrders([
-      // delete this
-      {
-        orderId: "78",
-        email: "bavshehata@gmail.com",
-        productName: "Flag",
-        quantity: "3",
-        size: "XS",
-        deliveryNote: "random text yaaaaaay",
-        totalPrice: "100",
-        imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-        status: "pending",
-      },
-      {
-        orderId: "3",
-        email: "ash@gmail.com",
-        productName: "kajfslj",
-        quantity: "3",
-        size: "XS",
-        deliveryNote: "random text yaaaaaay",
-        totalPrice: "100",
-        imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-        status: "pending",
-      },
-    ]);
+    setIsLoading(false); // to do: delete this
 
     return () => {
       fetchAbortController.abort();
