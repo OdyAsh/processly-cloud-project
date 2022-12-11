@@ -8,7 +8,7 @@ const OrdersList = (props) => {
   return (
     <div className={className}>
       {props.orders.map((o) => (
-        <OrderSummary order={o} key={o._id} />
+        <OrderSummary order={o} key={o.orderId} />
       ))}
     </div>
   );

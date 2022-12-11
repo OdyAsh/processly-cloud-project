@@ -10,7 +10,7 @@ const StViewAllOrders = () => {
   const [orders, setOrders] = useState([
     // to do: change below dummy data to []
     {
-      _id: "78",
+      orderId: "78",
       email: "bavshehata@gmail.com",
       productName: "Flag",
       quantity: "3",
@@ -23,7 +23,7 @@ const StViewAllOrders = () => {
       status: "pending",
     },
     {
-      _id: "3",
+      orderId: "3",
       email: "ash@gmail.com",
       productName: "kajfslj",
       quantity: "3",
@@ -39,15 +39,17 @@ const StViewAllOrders = () => {
 
   const submitHandler = async (formData) => {
     try {
+      if (formData["email"] === "") {
+        formData["email"] = "all";
+      }
       const response = await fetch(
-        `https://processly101.herokuapp.com/orders/${formData["email"]}`,
+        `https://processly101.herokuapp.com/orders?email=${formData["email"]}`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `BEARER ${authContext.token}`,
           },
-          body: JSON.stringify(formData),
         }
       );
 

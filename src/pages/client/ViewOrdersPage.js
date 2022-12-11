@@ -63,7 +63,7 @@ const OrdersPage = () => {
     setOrders([
       // delete this
       {
-        _id: "78",
+        orderId: "78",
         email: "bavshehata@gmail.com",
         productName: "Flag",
         quantity: "3",
@@ -76,7 +76,7 @@ const OrdersPage = () => {
         status: "pending",
       },
       {
-        _id: "3",
+        orderId: "3",
         email: "ash@gmail.com",
         productName: "kajfslj",
         quantity: "3",

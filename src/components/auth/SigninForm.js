@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import AuthContext from "../../store/authContext";
 import FormInputError from "../../UI/form/FormInputError";
@@ -26,6 +25,8 @@ const SigninForm = () => {
       );
 
       const data = await response.json();
+      console.log("from SigninForm.js");
+      console.log(data);
 
       if (!response.ok) {
         throw Error(data.error);

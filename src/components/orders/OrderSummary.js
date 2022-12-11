@@ -4,8 +4,8 @@ const OrderSummary = (props) => {
   const navigate = useNavigate();
   const goToAnOrder = () => {
     // navigate to a specific order
-    navigate(`/orders/view/${props.order._id}`);
-    console.log(props.order._id);
+    navigate(`/orders/view/${props.order.orderId}`);
+    console.log(props.order.orderId);
   };
 
   return (
@@ -19,7 +19,7 @@ const OrderSummary = (props) => {
         />
       </div>
       <div className="right-summary-card">
-        <div>Order ID: {props.order._id}</div>
+        <div>Order ID: {props.order.orderId}</div>
         <div>Created On: {props.order.date}</div>
         <div>Status: {props.order.status}</div>
       </div>

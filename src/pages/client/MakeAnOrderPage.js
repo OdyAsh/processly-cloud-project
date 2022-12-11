@@ -7,7 +7,21 @@ import Loading from "../../components/media/Loading";
 
 const MakeOrder = () => {
   const authContext = useContext(AuthContext);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    {
+      productId: 1,
+      name: "flag",
+      price: 600,
+      imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
+    },
+    {
+      productId: 1,
+      name: "hoodie",
+      sizes: ["XS, S, M, L, XL"],
+      price: 400,
+      imgUrl: "https://i.imgur.com/76qddiu.png",
+    },
+  ]);
   const [isLoading, setIsLoading] = useState(true);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // source: https://bobbyhadz.com/blog/react-sleep-function
@@ -34,6 +48,11 @@ const MakeOrder = () => {
         const response = await fetch(
           "https://processly101.herokuapp.com/products",
           {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `BEARER ${authContext.token}`,
+            },
             signal: fetchSignal,
           }
         );

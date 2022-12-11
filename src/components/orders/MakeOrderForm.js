@@ -24,7 +24,7 @@ const MakeOrderForm = (props) => {
   const authContext = useContext(AuthContext);
 
   // const productsNamesTmp = props.products.map((p) => {
-  //   return { name: p.name, value: p._id };
+  //   return { name: p.name, value: p.productId };
   // }); // to do: uncomment this and delete dummy list below
   // const [productsNames] = useState(productsNamesTmp);
 
@@ -37,14 +37,14 @@ const MakeOrderForm = (props) => {
   // spn, and spq means selected product name, and quantity
   const [spn, setSPN] = useState(""); // useState(props.products[0].name); // to do: uncomment this
   const [spq, setSPQ] = useState(1);
+  const [spo, setSPO] = useState(null);
   const [dn, setDn] = useState(""); // dn means Delivery Note
-  const [pSizes, setPSizes] = useState(["xs", "s", "dff"]); // useState(props.products[0].sizes);
+  const [pSizes, setPSizes] = useState(["xs", "s", "dff"]); // to do: useState(props.products[0].sizes);
 
-  let initialSize = "";
+  const [spSize, setSPSize] = useState("xs"); // delete "xs" this and uncomment if logic below
   // if ('sizes' in props.products[0] && props.products[0].sizes.length > 0) {
-  //   initialSize = props.products[0].sizes[0];
+  //   setSPSize(props.products[0].sizes[0]);
   // }
-  const [spSize, setSPSize] = useState(initialSize); // delete this and uncomment if logic above
 
   const [spImg, setSPImg] = useState("https://i.imgur.com/ShCVXml.png"); // useState(props.products[0].imgUrl);
   const [spPrice, setSPPrice] = useState(2); // useState(props.products[0].price);
@@ -55,9 +55,11 @@ const MakeOrderForm = (props) => {
     let spoTmp = props.products.find((obj) => {
       return obj.name.toLowerCase() === spnTmp.toLowerCase();
     });
+    setSPO(spoTmp);
     setSPN(spnTmp);
     let pSizesTmp = [];
     let spSizeTmp = "";
+
     // if ('sizes' in spoTmp && spoTmp.sizes.length > 0) {
     //   pSizesTmp = spoTmp.sizes;
     //   spSizeTmp = spoTmp.sizes[0];
@@ -73,7 +75,7 @@ const MakeOrderForm = (props) => {
     } else {
       setSPImg("https://i.imgur.com/ShCVXml.png");
     }
-    setSPPrice(spoTmp.price);
+    setSPPrice(4); // to do: spoTmp.price
     return;
   };
 
@@ -100,19 +102,21 @@ const MakeOrderForm = (props) => {
 
   const submitHandler = async (formData) => {
     try {
-      formData["productName"] = spn; // changing productName key, as it holds value of name (which is _id), while we want to store the actual name of the product
+      formData["productId"] = 123; // to do: spo.productId
       formData["email"] = authContext.email;
-      formData["imgUrl"] = spImg; // adding product's img URL to Order object
       formData["date"] = GetDate(); // adding order's date and time to Order object
       formData["time"] = GetTime();
       formData["status"] = "pending"; // adding order's status as "pending"
-      formData["totalPrice"] = spPrice * spq; // adding total price of order
+      formData["totalPrice"] = spPrice * spq;
       if (spSize === "") {
         delete formData["productSize"];
       }
       if (dn === "") {
         delete formData["deliveryNote"];
       }
+
+      console.log("from MakeOrderForm.js");
+      console.log(formData);
 
       const response = await fetch(
         "https://processly101.herokuapp.com/orders",

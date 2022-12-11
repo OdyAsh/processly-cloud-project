@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-
+import AuthContext from "../../store/authContext";
 import Loading from "../../components/media/Loading";
 import OrderDetailsForm from "../../components/orders/OrderDetailsForm";
 
 const OrderDetailsPage = () => {
+  const authContext = useContext(AuthContext);
   const [order, setOrder] = useState({
     // to do: delete this dummy data and make it null
-    _id: "1",
+    orderId: "1",
     email: "bavshehata@gmail.com",
     productName: "Flag",
     quantity: "3",
@@ -47,8 +48,13 @@ const OrderDetailsPage = () => {
       try {
         await sleep(1000);
         const response = await fetch(
-          `https://processly101.herokuapp.com/orders/${orderId}`,
+          `https://processly101.herokuapp.com/orders?orderId=${orderId}`,
           {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `BEARER ${authContext.token}`,
+            },
             signal: fetchSignal,
           }
         );
