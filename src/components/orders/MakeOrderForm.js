@@ -9,45 +9,30 @@ import TextInput from "../../UI/form/TextInput";
 import GetDate from "../utils/GetDate";
 import GetTime from "../utils/GetTime";
 
-/*
-  data to consider in form:
-  merch-name
-  merch-quantity
-  merch-size
-  pic to display merch based on merch-name selected
-  "Create Order" button
-*/
-
 const MakeOrderForm = (props) => {
   const { register, handleSubmit, formState } = useForm();
 
   const authContext = useContext(AuthContext);
 
-  // const productsNamesTmp = props.products.map((p) => {
-  //   return { name: p.name, value: p.productId };
-  // }); // to do: uncomment this and delete dummy list below
-  // const [productsNames] = useState(productsNamesTmp);
-
-  const [productsNames] = useState([
-    // dummy data
-    { name: "aname", value: "1" },
-    { name: "Flag", value: "2" },
-  ]);
+  const productsNamesTmp = props.products.map((p) => {
+    return { name: p.name, value: p.productId };
+  });
+  const [productsNames] = useState(productsNamesTmp);
 
   // spn, and spq means selected product name, and quantity
-  const [spn, setSPN] = useState(""); // useState(props.products[0].name); // to do: uncomment this
+  const [spn, setSPN] = useState(props.products[0].name);
   const [spq, setSPQ] = useState(1);
   const [spo, setSPO] = useState(null);
   const [dn, setDn] = useState(""); // dn means Delivery Note
-  const [pSizes, setPSizes] = useState(["xs", "s", "dff"]); // to do: useState(props.products[0].sizes);
+  const [pSizes, setPSizes] = useState(props.products[0].sizes);
 
-  const [spSize, setSPSize] = useState("xs"); // delete "xs" this and uncomment if logic below
-  // if ('sizes' in props.products[0] && props.products[0].sizes.length > 0) {
-  //   setSPSize(props.products[0].sizes[0]);
-  // }
+  const [spSize, setSPSize] = useState("");
+  if ("sizes" in props.products[0] && props.products[0].sizes.length > 0) {
+    setSPSize(props.products[0].sizes[0]);
+  }
 
-  const [spImg, setSPImg] = useState("https://i.imgur.com/ShCVXml.png"); // useState(props.products[0].imgUrl);
-  const [spPrice, setSPPrice] = useState(2); // useState(props.products[0].price);
+  const [spImg, setSPImg] = useState(props.products[0].imgUrl);
+  const [spPrice, setSPPrice] = useState(props.products[0].price);
 
   const onPtChange = (e) => {
     let idx = e.target.selectedIndex;
@@ -57,25 +42,19 @@ const MakeOrderForm = (props) => {
     });
     setSPO(spoTmp);
     setSPN(spnTmp);
-    let pSizesTmp = [];
-    let spSizeTmp = "";
 
-    // if ('sizes' in spoTmp && spoTmp.sizes.length > 0) {
-    //   pSizesTmp = spoTmp.sizes;
-    //   spSizeTmp = spoTmp.sizes[0];
-    //   setSPSize(spSizeTmp);
-    // }
-    // setSPImg(props.products[idx].imgUrl);
-    // setSPPrice(props.products[idx].price);
-    setPSizes(pSizesTmp); // to do: delete this, and uncomment all of the above
-
-    if (spnTmp.toLowerCase() === "flag") {
-      // to do: remove this
-      setSPImg("https://i.imgur.com/IGh0FoV.jpg");
+    if ("sizes" in spoTmp && spoTmp.sizes.length > 0) {
+      let pSizesTmp = spoTmp.sizes;
+      let spSizeTmp = spoTmp.sizes[0];
+      setSPSize(spSizeTmp);
+      setPSizes(pSizesTmp);
     } else {
-      setSPImg("https://i.imgur.com/ShCVXml.png");
+      setSPSize("");
+      setPSizes([]);
     }
-    setSPPrice(4); // to do: spoTmp.price
+
+    setSPImg(props.products[idx].imgUrl);
+    setSPPrice(props.products[idx].price);
     return;
   };
 
@@ -102,14 +81,12 @@ const MakeOrderForm = (props) => {
 
   const submitHandler = async (formData) => {
     try {
-      formData["productId"] = 123; // to do: spo.productId
+      formData["productId"] = spo.productId;
       formData["email"] = authContext.email;
-      formData["date"] = GetDate(); // adding order's date and time to Order object
-      formData["time"] = GetTime();
       formData["status"] = "pending"; // adding order's status as "pending"
       formData["totalPrice"] = spPrice * spq;
       if (spSize === "") {
-        delete formData["productSize"];
+        delete formData["size"];
       }
       if (dn === "") {
         delete formData["deliveryNote"];
@@ -189,17 +166,17 @@ const MakeOrderForm = (props) => {
             <FormInputError>Product quantity must be stated</FormInputError>
           )}
 
-          {pSizes.length > 0 && (
+          {pSizes && pSizes.length > 0 && (
             <SelectInput
               label="Product Size"
-              name="productSize"
+              name="size"
               register={register}
               required={true}
               onChange={onSzChange}
               options={pSizes}
             />
           )}
-          {pSizes.length > 0 && formState.errors.productSize && (
+          {pSizes && pSizes.length > 0 && formState.errors.size && (
             <FormInputError>Product size must not be empty.</FormInputError>
           )}
         </div>
@@ -234,7 +211,6 @@ const MakeOrderForm = (props) => {
       </div>
     </form>
   );
-  // to do: remove this: bg-white rounded-xl my-4 py-2 px-8 self-center
 };
 
 export default MakeOrderForm;

@@ -18,9 +18,9 @@ const MakeOrder = () => {
       imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
     },
     {
-      productId: 1,
+      productId: 2,
       name: "hoodie",
-      sizes: ["XS, S, M, L, XL"],
+      sizes: ["XS", "S", "M", "L", "XL"],
       price: 400,
       imgUrl: "https://i.imgur.com/76qddiu.png",
     },
@@ -64,7 +64,7 @@ const MakeOrder = () => {
           throw Error(data.error);
         }
 
-        setProducts(data.products);
+        // setProducts(data.products);
         setIsLoading(false);
       } catch (err) {
         console.log(err.message);
