@@ -14,7 +14,6 @@ import OrderDetailsPage from "./pages/client/OrderDetailsPage";
 import AboutPage from "./pages/client/AboutPage";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
-import SignOutPage from "./pages/SignOutPage";
 
 import StHomePage from "./pages/st/StHomePage";
 import StViewAllOrders from "./pages/st/StViewAllOrders";
@@ -35,15 +34,16 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/orders/make" element={<MakeAnOrderPage />} />
-            <Route path="/orders/view" element={<ViewOrdersPage />} />
-            <Route
-              path="/orders/view/:orderId"
-              element={<OrderDetailsPage />}
-            />
+            <Route element={<PrivateRoutes role="client" />}>
+              <Route path="/orders/make" element={<MakeAnOrderPage />} />
+              <Route path="/orders/view" element={<ViewOrdersPage />} />
+              <Route
+                path="/orders/view/:orderId"
+                element={<OrderDetailsPage />}
+              />
+            </Route>
             <Route path="/signin" element={<SigninPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route path="/signout" element={<SignOutPage />} />
             <Route path="/about" element={<AboutPage />} />
 
             <Route element={<PrivateRoutes role="st" />}>
@@ -60,7 +60,6 @@ const App = () => {
               <Route path="/st/send-reminders" element={<StSendReminders />} />
             </Route>
             <Route path="/st/signin" element={<SigninPage />} />
-            <Route path="/st/signout" element={<SignOutPage />} />
 
             <Route element={<PrivateRoutes role="wh" />}>
               <Route path="/wh/" element={<WhHomePage />} />
@@ -70,7 +69,6 @@ const App = () => {
               <Route path="/wh/update-product" element={<WhUpdateProduct />} />
             </Route>
             <Route path="/wh/signin" element={<SigninPage />} />
-            <Route path="/wh/signout" element={<SignOutPage />} />
           </Routes>
         </Layout>
         <ToastContainer
