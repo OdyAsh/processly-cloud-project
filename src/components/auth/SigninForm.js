@@ -39,7 +39,7 @@ const SigninForm = () => {
         data.name,
         data.email,
         data.role,
-        data.jwt
+        data.token
       );
 
       toast.success("Signed in successfully! 💪", {

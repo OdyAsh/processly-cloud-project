@@ -7,7 +7,10 @@ import Loading from "../../components/media/Loading";
 
 const MakeOrder = () => {
   const authContext = useContext(AuthContext);
+  console.log("in MakeAnOrderPage.js:");
+  console.log(authContext);
   const [products, setProducts] = useState([
+    // to do: remove dummy data
     {
       productId: 1,
       name: "flag",

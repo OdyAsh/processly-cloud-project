@@ -98,7 +98,7 @@ const SignupForm = () => {
         data.name,
         data.email,
         data.role,
-        data.jwt
+        data.token
       );
 
       navigate("/");
@@ -131,12 +131,11 @@ const SignupForm = () => {
         <FormInputError>Name must not be empty</FormInputError>
       )}
 
-      <SelectInput
+      <TextInput
         label="Address"
         name="address"
         register={register}
         required={true}
-        options={whLocs}
       />
 
       <TextInput

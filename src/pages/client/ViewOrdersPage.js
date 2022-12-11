@@ -71,8 +71,6 @@ const OrdersPage = () => {
         deliveryNote: "random text yaaaaaay",
         totalPrice: "100",
         imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-        date: "1/1/2001",
-        time: "12H:23M:34S",
         status: "pending",
       },
       {
@@ -84,8 +82,6 @@ const OrdersPage = () => {
         deliveryNote: "random text yaaaaaay",
         totalPrice: "100",
         imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-        date: "1/1/2001",
-        time: "12H:23M:34S",
         status: "pending",
       },
     ]);
