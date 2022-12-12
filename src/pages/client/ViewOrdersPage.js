@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import OrdersList from "../../components/orders/OrdersList";
 import Loading from "../../components/media/Loading";
+import AuthContext from "../../store/authContext";
+import { useContext } from "react";
 
 const OrdersPage = () => {
   // let's define a state for orders
   const [orders, setOrders] = useState([]);
+  const authContext = useContext(AuthContext);
 
   // let's define a state for loading
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +29,7 @@ const OrdersPage = () => {
       try {
         // send an HTTP GET request to the get orders route we defined in our Express REST API
         const response = await fetch(
-          "https://processly.azurewebsites.net/orders/?userid",
+          `https://processly.azurewebsites.net/orders?email=all`,
           {
             signal: fetchSignal,
           }
