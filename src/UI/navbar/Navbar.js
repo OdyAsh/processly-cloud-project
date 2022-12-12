@@ -35,7 +35,6 @@ const Navbar = () => {
 
   if (
     // user is trying to login as sales-team or warehouse member, so don't show them possible actions in NavBar unless they successfully sign in
-    false && // to do: remove "false &&"
     authContext.role === "" &&
     (location.pathname.includes("st") || location.pathname.includes("wh"))
   ) {

@@ -4,31 +4,7 @@ import Loading from "../../components/media/Loading";
 
 const OrdersPage = () => {
   // let's define a state for orders
-  const [orders, setOrders] = useState([
-    // to do: delete this and make it []
-    {
-      orderId: "78",
-      email: "bavshehata@gmail.com",
-      productName: "Flag",
-      quantity: "3",
-      size: "XS",
-      deliveryNote: "random text yaaaaaay",
-      totalPrice: "100",
-      imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-      status: "pending",
-    },
-    {
-      orderId: "3",
-      email: "ash@gmail.com",
-      productName: "kajfslj",
-      quantity: "3",
-      size: "XS",
-      deliveryNote: "random text yaaaaaay",
-      totalPrice: "100",
-      imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-      status: "pending",
-    },
-  ]);
+  const [orders, setOrders] = useState([]);
 
   // let's define a state for loading
   const [isLoading, setIsLoading] = useState(true);
@@ -74,8 +50,7 @@ const OrdersPage = () => {
       }
     };
 
-    // fetchOrders(); // to do: uncomment this
-    setIsLoading(false); // to do: delete this
+    fetchOrders();
 
     return () => {
       fetchAbortController.abort();

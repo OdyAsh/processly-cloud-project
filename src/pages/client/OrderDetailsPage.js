@@ -53,11 +53,10 @@ const OrderDetailsPage = () => {
         setIsLoading(false);
       } catch (err) {
         console.log(err.message);
-        setIsLoading(false); //to do: delete this
       }
     };
 
-    fetchOrderDetails(); //to do: uncomment this
+    fetchOrderDetails();
     return () => {
       fetchAbortController.abort();
     };

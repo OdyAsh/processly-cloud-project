@@ -4,12 +4,11 @@ import AuthContext from "../../store/authContext";
 
 const PrivateRoutes = (props) => {
   const authcontext = useContext(AuthContext);
-  return true || (authcontext.token && authcontext.role === props.role) ? (
+  return authcontext.token && authcontext.role === props.role ? (
     <Outlet />
   ) : (
     <Navigate to={`${props.role}/signin`} />
   );
-  // to do: delete "true ||"
 };
 
 export default PrivateRoutes;

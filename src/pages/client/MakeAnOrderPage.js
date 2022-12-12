@@ -42,7 +42,7 @@ const MakeOrder = () => {
           throw Error(data.error);
         }
 
-        // setProducts(data.products); // to do: uncomment this
+        setProducts(data.products);
         setIsLoading(false);
       } catch (err) {
         console.log(err.message);
