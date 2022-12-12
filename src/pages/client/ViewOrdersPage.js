@@ -26,7 +26,7 @@ const OrdersPage = () => {
       try {
         // send an HTTP GET request to the get orders route we defined in our Express REST API
         const response = await fetch(
-          "https://processly.azurewebsites.net/orders/:userid",
+          "https://processly.azurewebsites.net/orders/?userid",
           {
             signal: fetchSignal,
           }
