@@ -9,27 +9,3 @@ const StHomePage = () => {
 };
 
 export default StHomePage;
-
-// import { useNavigate } from "react-router-dom";
-// import AllowAccessToPage from "../../store/AllowAccessToPage";
-// import { useEffect } from "react";
-// import AuthContext from './../../store/authContext';
-// const StHomePage = () => {
-//   const navigate = useNavigate();
-//   useEffect(() => {
-//     if (!AllowAccessToPage("st")) {
-//       navigate("/st/signin");
-//       console.log("test");
-//     }
-//   });
-
-//   return (
-//     <div className="row-center-content">
-//       <h1 style={{ fontSize: "3vw", marginTop: "20vh" }}>
-//         Please choose an action from the navigation bar
-//       </h1>
-//     </div>
-//   );
-// };
-
-// export default StHomePage;

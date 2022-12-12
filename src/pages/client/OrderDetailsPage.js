@@ -6,25 +6,12 @@ import OrderDetailsForm from "../../components/orders/OrderDetailsForm";
 
 const OrderDetailsPage = () => {
   const authContext = useContext(AuthContext);
-  const [order, setOrder] = useState({
-    // to do: delete this dummy data and make it null
-    orderId: "1",
-    email: "bavshehata@gmail.com",
-    productName: "Flag",
-    quantity: "3",
-    productSize: "XS",
-    deliveryNote: "random text yaaaaaay",
-    totalPrice: "100",
-    imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-    status: "pending",
-  });
+  const [order, setOrder] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   // use the useParams hook in React Router to allow us to access dynamic segments in our dynamic route
   const params = useParams();
   // our dynamic segment was called orderId, so we can access it as follows:
   const orderId = params.orderId;
-  console.log("from OrderDetailsPage.js");
-  console.log(orderId);
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // source: https://bobbyhadz.com/blog/react-sleep-function
 
   const content = (isLoading, order) => {
@@ -74,7 +61,7 @@ const OrderDetailsPage = () => {
     return () => {
       fetchAbortController.abort();
     };
-  }, [orderId]);
+  }, [authContext.token, orderId]);
 
   return <div className="row-center-content">{content(isLoading, order)}</div>;
 };

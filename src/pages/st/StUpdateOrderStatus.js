@@ -1,37 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import AuthContext from "../../store/authContext";
-import TextInput from "./../../UI/form/TextInput";
+import TextInput from "../../UI/form/TextInput";
 import OrdersList from "../../components/orders/OrdersList";
 
-const StViewAllOrders = () => {
+const StUpdateOrderStatus = () => {
   const authContext = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
-  const [orders, setOrders] = useState([
-    // to do: change below dummy data to []
-    {
-      orderId: "78",
-      email: "bavshehata@gmail.com",
-      productName: "Flag",
-      quantity: "3",
-      size: "XS",
-      deliveryNote: "random text yaaaaaay",
-      totalPrice: "100",
-      imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-      status: "pending",
-    },
-    {
-      orderId: "3",
-      email: "ash@gmail.com",
-      productName: "kajfslj",
-      quantity: "3",
-      size: "XS",
-      deliveryNote: "random text yaaaaaay",
-      totalPrice: "100",
-      imgUrl: "https://i.imgur.com/IGh0FoV.jpg",
-      status: "pending",
-    },
-  ]);
+  const [orders, setOrders] = useState([]);
 
   const submitHandler = async (formData) => {
     try {
@@ -54,7 +30,7 @@ const StViewAllOrders = () => {
         throw Error(data.error);
       }
       console.log(data);
-      setOrders(data);
+      setOrders(data.orders);
     } catch (err) {
       console.log(err.message);
     }
@@ -86,4 +62,4 @@ const StViewAllOrders = () => {
   );
 };
 
-export default StViewAllOrders;
+export default StUpdateOrderStatus;

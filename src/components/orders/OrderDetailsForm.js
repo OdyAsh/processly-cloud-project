@@ -3,12 +3,17 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import AuthContext from "../../store/authContext";
 import TextAreaInput from "../../UI/form/TextAreaInput";
+import GetDate from "./../utils/GetDate";
+import GetTime from "./../utils/GetTime";
+import { useLocation } from "react-router-dom";
 
-const OrderDetailsForm = (props) => {
+const OrderDetailsForm = () => {
+  const location = useLocation();
+  const order = location.state; // getting the order object from OrderSummary.js
   const { register } = useForm();
   const authContext = useContext(AuthContext);
   const [dn, setDn] = useState(
-    "deliveryNote" in props.order ? props.order.deliveryNote : ""
+    "deliveryNote" in order ? order.deliveryNote : ""
   );
 
   const onDnChange = (e) => {
@@ -19,29 +24,37 @@ const OrderDetailsForm = (props) => {
   const onOrderChange = async (task) => {
     // updates order based on delivery note or cancellation
     try {
-      let statusTmp = task === "update" ? props.order.status : "cancelled";
-      let dnTmp = task === "update" ? dn : props.order.deliveryNote;
-      const response = await fetch(
-        `https://processly101.herokuapp.com/orders?orderId=${props.order.orderId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `BEARER ${authContext.token}`,
-          },
-          body: JSON.stringify({ deliveryNote: dnTmp, status: statusTmp }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw Error(data.error);
+      let statusTmp = "";
+      let dnTmp = dn;
+      if (task in ["en route", "pending", "delivered", "cancelled"]) {
+        // then either p.o.v of st, or client that chose to cancel order
+        statusTmp = task;
+      } else {
+        // then p.o.v of client that chose to update order
+        statusTmp = order.status;
       }
 
-      console.log("from OrderDetailsForm.js:");
-      console.log(data);
-      toast.success("Order made successfully! 💪", {
+      // const response = await fetch(
+      //   `https://processly101.herokuapp.com/orders?orderId=${order.orderId}`,
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `BEARER ${authContext.token}`,
+      //     },
+      //     body: JSON.stringify({ deliveryNote: dnTmp, status: statusTmp }),
+      //   }
+      // );
+
+      // const data = await response.json();
+
+      // if (!response.ok) {
+      //   throw Error(data.error);
+      // }
+
+      // console.log("from OrderDetailsForm.js:");
+      // console.log(data);
+      toast.success("Order updated successfully! 💪", {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -67,11 +80,48 @@ const OrderDetailsForm = (props) => {
   };
 
   const restOfBottomContent = () => {
-    if (
-      props.order.status !== "delivered" &&
-      props.order.status !== "cancelled"
-    ) {
+    if (order.status !== "delivered" && order.status !== "cancelled") {
+      if (location.pathname.includes("st/")) {
+        // we're accessing the order details from a sales team p.o.v
+        return (
+          <>
+            <label className="form-sublabel center-label">
+              Delivery Note: {dn}
+            </label>
+            <div className="order-details-buttons">
+              <button
+                type="submit"
+                className="form-button"
+                onClick={() =>
+                  onOrderChange(
+                    order.status !== "en route" ? "en route" : "pending"
+                  )
+                }
+              >
+                {order.status !== "en route" ? "en route" : "pending"}
+              </button>
+
+              <button
+                type="submit"
+                className="form-button"
+                onClick={() => onOrderChange("delivered")}
+              >
+                delivered
+              </button>
+
+              <button
+                type="submit"
+                className="form-button"
+                onClick={() => onOrderChange("cancelled")}
+              >
+                cancelled
+              </button>
+            </div>
+          </>
+        );
+      }
       return (
+        // we're accessing the order details from a client p.o.v
         <>
           <TextAreaInput
             label="Delivery Note"
@@ -83,21 +133,20 @@ const OrderDetailsForm = (props) => {
           />
 
           <div className="order-details-buttons">
-            {"deliveryNote" in props.order &&
-              props.order.deliveryNote !== dn && (
-                <button
-                  type="submit"
-                  className="form-button"
-                  onClick={() => onOrderChange("update")}
-                >
-                  Update Order
-                </button>
-              )}
+            {"deliveryNote" in order && order.deliveryNote !== dn && (
+              <button
+                type="submit"
+                className="form-button"
+                onClick={() => onOrderChange("update")}
+              >
+                Update Order
+              </button>
+            )}
 
             <button
               type="submit"
               className="form-button"
-              onClick={() => onOrderChange("cancel")}
+              onClick={() => onOrderChange("cancelled")}
             >
               Cancel Order
             </button>
@@ -108,8 +157,7 @@ const OrderDetailsForm = (props) => {
     return (
       <>
         <label className="form-sublabel center-label">
-          {" "}
-          Delivery Note: {dn}{" "}
+          Delivery Note: {dn}
         </label>
       </>
     );
@@ -122,30 +170,30 @@ const OrderDetailsForm = (props) => {
           <div className="form-label-and-sublabel-col">
             <label className="form-label center-label">Product Name</label>
             <label className="form-sublabel center-label">
-              {props.order.productName}
+              {order.productName}
             </label>
           </div>
 
           <div className="form-label-and-sublabel-col">
             <label className="form-label center-label"> Quantity</label>
             <label className="form-sublabel center-label">
-              {props.order.quantity}
+              {order.quantity}
             </label>
           </div>
 
-          {"productSize" in props.order && (
+          {"productSize" in order && (
             <div className="form-label-and-sublabel-col">
               <label className="form-label center-label">Chosen Size</label>
               <label className="form-sublabel center-label">
-                {props.order.productSize}
+                {order.productSize}
               </label>
             </div>
           )}
         </div>
         <div className="form-right">
           <img
-            src={props.order.imgUrl}
-            alt={props.order.productName}
+            src={order.imgUrl}
+            alt={order.productName}
             width="300"
             className="product-img"
           />
@@ -154,22 +202,20 @@ const OrderDetailsForm = (props) => {
       <div className="form-bottom">
         <div className="form-label-and-sublabel-row">
           <label className="form-label center-label">Order ID:</label>
-          <label className="form-sublabel center-label">
-            {props.order.orderId}
-          </label>
+          <label className="form-sublabel center-label">{order.orderId}</label>
         </div>
 
         <div className="form-label-and-sublabel-row">
           <label className="form-label center-label">Creation Date:</label>
           <label className="form-sublabel center-label">
-            {props.order.date}, {props.order.time.toLowerCase()}
+            {GetDate(order.createdAt)},{GetTime(order.createdAt).toLowerCase()}
           </label>
         </div>
 
         <label
           name="totalPrice"
           className="form-label center-label"
-        >{`Total Price: ${props.order.totalPrice} EGP`}</label>
+        >{`Total Price: ${order.totalPrice} EGP`}</label>
 
         <div className="form-label-and-sublabel-row">
           <label className="form-label center-label">Status:</label>
@@ -177,15 +223,15 @@ const OrderDetailsForm = (props) => {
             className="form-sublabel center-label"
             style={{
               color:
-                props.order.status === "delivered"
+                order.status === "delivered"
                   ? "#15E915"
-                  : props.order.status === "cancelled"
+                  : order.status === "cancelled"
                   ? "#F81D1D"
                   : "white",
               fontWeight: "700",
             }}
           >
-            {props.order.status}
+            {order.status}
           </label>
         </div>
 

@@ -25,8 +25,6 @@ const SigninForm = () => {
       );
 
       const data = await response.json();
-      console.log("from SigninForm.js");
-      console.log(data);
 
       if (!response.ok) {
         throw Error(data.error);

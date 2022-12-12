@@ -1,7 +1,11 @@
-const WhUpdateProduct = () => {
-  // your-logic-here
+import UpdateProductForm from "../../components/products/UpdateProductForm";
 
-  return <></>;
+const WhUpdateProduct = () => {
+  return (
+    <div className="row-center-content">
+      <UpdateProductForm />
+    </div>
+  );
 };
 
 export default WhUpdateProduct;

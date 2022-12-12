@@ -396,6 +396,57 @@ h2.forbidden {
   justify-content: center;
 }
 
+/************* StGenerateReport.js *************/
+.generate-report {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.top .grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  justify-items: center;
+  justify-content: center;
+}
+
+.report-card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 5%;
+  padding: 20px;
+  width: fit-content;
+}
+.report-card p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.bottom .grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem;
+  justify-items: center;
+  justify-content: center;
+}
+
+/************* ProductSummary.js *************/
+.product-summary-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  column-gap: 30px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 5%;
+  padding: 20px;
+  width: fit-content;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

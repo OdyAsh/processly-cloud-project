@@ -20,18 +20,15 @@ const Navbar = () => {
     portal = "st/";
     navOptionsToAndText = {
       "st/": "Home",
-      "st/view-all-orders": "View All Orders",
+      "st/update-order-status": "Update Order Status",
       "st/generate-report": "Generate Report",
-      "st/generate-invoices": "Generate Invoices",
-      "st/send-reminders": "Send Reminders",
     };
   } else if (location.pathname.includes("wh")) {
     portal = "wh/";
     navOptionsToAndText = {
       "wh/": "Home",
       "wh/add-product": "Add Product",
-      "wh/get-product": "Get Product",
-      "wh/remove-product": "Remove Product",
+      "wh/get-products": "Get Products",
       "wh/update-product": "Update Product",
     };
   }

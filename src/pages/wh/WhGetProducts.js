@@ -1,12 +1,13 @@
-import { useState, useEffect, useContext } from "react";
-
-import AuthContext from "../../store/authContext";
-import MakeOrderForm from "../../components/orders/MakeOrderForm";
+import { useState } from "react";
+import { useContext } from "react";
+import { useEffect } from "react";
 import Loading from "../../components/media/Loading";
+import AuthContext from "../../store/authContext";
+import ProductsList from "../../components/products/ProductsList";
 
-const MakeOrder = () => {
-  const authContext = useContext(AuthContext);
+const WhGetProducts = () => {
   const [products, setProducts] = useState([]);
+  const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // source: https://bobbyhadz.com/blog/react-sleep-function
@@ -16,7 +17,7 @@ const MakeOrder = () => {
       return <Loading />;
     }
 
-    return <MakeOrderForm products={products} />;
+    return <ProductsList products={products} />;
   };
 
   useEffect(() => {
@@ -41,8 +42,8 @@ const MakeOrder = () => {
         if (!response.ok) {
           throw Error(data.error);
         }
-
-        // setProducts(data.products); // to do: uncomment this
+        console.log("data", data);
+        setProducts(data.products);
         setIsLoading(false);
       } catch (err) {
         console.log(err.message);
@@ -61,4 +62,4 @@ const MakeOrder = () => {
   );
 };
 
-export default MakeOrder;
+export default WhGetProducts;

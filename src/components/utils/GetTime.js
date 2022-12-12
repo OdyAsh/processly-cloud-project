@@ -1,5 +1,8 @@
-const GetTime = () => {
+const GetTime = (givenTime = null) => {
   let today = new Date();
+  if (givenTime) {
+    today = new Date(givenTime);
+  }
   let time =
     today.getHours() +
     "H:" +

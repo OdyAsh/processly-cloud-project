@@ -1,7 +1,11 @@
-const WhAddProduct = () => {
-  // your-logic-here
+import AddProductForm from "../../components/products/AddProductForm";
 
-  return <></>;
+const WhAddProduct = () => {
+  return (
+    <div className="row-center-content">
+      <AddProductForm />
+    </div>
+  );
 };
 
 export default WhAddProduct;
