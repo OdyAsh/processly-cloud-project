@@ -173,8 +173,8 @@ h2.forbidden {
 
 .gallery {
   position: relative;
-  width: 30vw;
-  max-height: 20vh;
+  width: 300px;
+  height: 300px;
   padding-bottom: 40px;
 }
 
@@ -401,6 +401,16 @@ h2.forbidden {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
+  justify-content: center;
+  justify-items: center;
+}
+
+.generate-report .bottom {
+  display: flex;
+  flex-direction: row;
+  row-gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .top .grid {

@@ -1,4 +1,4 @@
-import navLogo from "../../assets/orange-box-by-good-ware.png";
+import navLogo from "../../assets/final-yellow.png";
 
 import NavItem from "./NavItem";
 

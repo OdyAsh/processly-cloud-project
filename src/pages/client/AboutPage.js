@@ -12,7 +12,7 @@ const AboutPage = (props) => {
           <NavItem
             to="/about"
             className="to-about"
-            externalLink={"https://www.linkedin.com/in/ashrafharess/"}
+            externalLink={"www.linkedin.com/in/ashrafharess/"}
           >
             Ashraf
           </NavItem>

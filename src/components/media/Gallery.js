@@ -15,13 +15,13 @@ const Gallery = (props) => {
       dynamicHeight // if you want height to change based on image
     >
       <div>
-        <img src={props.imgUrls[0]} alt="" />
+        <img src={props.imgUrls[0]} height="100" alt="" />
       </div>
       <div>
-        <img src={props.imgUrls[1]} alt="" />
+        <img src={props.imgUrls[1]} height="100" alt="" />
       </div>
       <div>
-        <img src={props.imgUrls[2]} alt="" />
+        <img src={props.imgUrls[2]} height="100" alt="" />
       </div>
     </Carousel>
   );

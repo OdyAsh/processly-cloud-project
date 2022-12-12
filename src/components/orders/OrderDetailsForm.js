@@ -34,26 +34,26 @@ const OrderDetailsForm = () => {
         statusTmp = order.status;
       }
 
-      // const response = await fetch(
-      //   `https://processly101.herokuapp.com/orders?orderId=${order.orderId}`,
-      //   {
-      //     method: "PUT",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Authorization: `BEARER ${authContext.token}`,
-      //     },
-      //     body: JSON.stringify({ deliveryNote: dnTmp, status: statusTmp }),
-      //   }
-      // );
+      const response = await fetch(
+        `https://processly101.herokuapp.com/orders?orderId=${order.orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `BEARER ${authContext.token}`,
+          },
+          body: JSON.stringify({ deliveryNote: dnTmp, status: statusTmp }),
+        }
+      );
 
-      // const data = await response.json();
+      const data = await response.json();
 
-      // if (!response.ok) {
-      //   throw Error(data.error);
-      // }
+      if (!response.ok) {
+        throw Error(data.error);
+      }
 
-      // console.log("from OrderDetailsForm.js:");
-      // console.log(data);
+      console.log("from OrderDetailsForm.js:");
+      console.log(data);
       toast.success("Order updated successfully! 💪", {
         position: "bottom-center",
         autoClose: 5000,
@@ -170,7 +170,7 @@ const OrderDetailsForm = () => {
           <div className="form-label-and-sublabel-col">
             <label className="form-label center-label">Product Name</label>
             <label className="form-sublabel center-label">
-              {order.productName}
+              {order.productId.name}
             </label>
           </div>
 
@@ -181,19 +181,17 @@ const OrderDetailsForm = () => {
             </label>
           </div>
 
-          {"productSize" in order && (
+          {"size" in order && (
             <div className="form-label-and-sublabel-col">
               <label className="form-label center-label">Chosen Size</label>
-              <label className="form-sublabel center-label">
-                {order.productSize}
-              </label>
+              <label className="form-sublabel center-label">{order.size}</label>
             </div>
           )}
         </div>
         <div className="form-right">
           <img
-            src={order.imgUrl}
-            alt={order.productName}
+            src={order.productId.imgUrl}
+            alt={order.productId.name}
             width="300"
             className="product-img"
           />
@@ -202,7 +200,7 @@ const OrderDetailsForm = () => {
       <div className="form-bottom">
         <div className="form-label-and-sublabel-row">
           <label className="form-label center-label">Order ID:</label>
-          <label className="form-sublabel center-label">{order.orderId}</label>
+          <label className="form-sublabel center-label">{order._id}</label>
         </div>
 
         <div className="form-label-and-sublabel-row">

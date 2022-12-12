@@ -1,26 +1,20 @@
-import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
-import AuthContext from "../../store/authContext";
-import TextInput from "./../../UI/form/TextInput";
-import OrdersList from "../../components/orders/OrdersList";
+import { Chart } from "react-google-charts";
 import Loading from "../../components/media/Loading";
 import { useEffect } from "react";
 
 const StGenerateReport = () => {
-  const [report, setReport] = useState({
-    // to do: change
-    totalRevenue: 100,
-    numOfOrders: 5,
-    mostSoldProduct: "flag",
-    highestPurchaser: "a@a.com",
-  });
+  const [report, setReport] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [pieChart, setPieChart] = useState([]);
+  const [barChart, setBarChart] = useState([]);
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  let productFreqList = [];
 
   const content = (isLoading, report) => {
     if (isLoading) {
       return (
-        <div class="row-center-content">
+        <div className="row-center-content">
           <Loading />
         </div>
       );
@@ -48,7 +42,25 @@ const StGenerateReport = () => {
           </div>
         </div>
 
-        <div className="bottom"></div>
+        <div className="bottom">
+          <Chart
+            chartType="PieChart"
+            data={pieChart}
+            options={{
+              title: "Number of Products Sold",
+            }}
+            height={"400px"}
+          />
+
+          <Chart
+            chartType="Bar"
+            data={barChart}
+            options={{
+              title: "Number of Products Sold",
+            }}
+            height={"400px"}
+          />
+        </div>
       </div>
     );
   };
@@ -68,6 +80,7 @@ const StGenerateReport = () => {
         );
         // parse the response content to JSON and store it into data variable
         const data = await response.json();
+        console.log("d:", data);
         await sleep(1000);
         // If there is an HTTP error (the response is NOT ok), throw the error message we get from the REST API.
         if (!response.ok) {
@@ -76,8 +89,19 @@ const StGenerateReport = () => {
         }
 
         // we now need to set our component state to the report we fetched
-        setReport(data);
+        setReport(data.report);
 
+        productFreqList = [["Product", "Sold Units"]];
+        for (let key in report.products) {
+          productFreqList.push([key, report.products[key][0]]);
+        }
+        setPieChart(productFreqList);
+
+        productFreqList = [["Product", "Total Price Paid"]];
+        for (let key in report.products) {
+          productFreqList.push([key, report.products[key][1]]);
+        }
+        setBarChart(productFreqList);
         // after we set the report' state, let's set the loading state to false
         setIsLoading(false);
       } catch (err) {
@@ -85,7 +109,7 @@ const StGenerateReport = () => {
       }
     };
 
-    // fetchReport(); // to do: uncomment and remove line below
+    fetchReport();
     setIsLoading(false);
     return () => {
       fetchAbortController.abort();
@@ -96,3 +120,11 @@ const StGenerateReport = () => {
 };
 
 export default StGenerateReport;
+
+// pie chart content:
+// ["Product", "Sold Units"],
+// ["Work", 11],
+// ["Eat", 2],
+// ["Commute", 2],
+// ["Watch TV", 2],
+// ["Sleep", 7],
