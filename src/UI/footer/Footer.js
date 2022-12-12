@@ -29,7 +29,7 @@ const Footer = (props) => {
         </a>
         <a
           className="social-icon"
-          href="https://discord.com/"
+          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           target="_blank"
           rel="noreferrer"
         >
