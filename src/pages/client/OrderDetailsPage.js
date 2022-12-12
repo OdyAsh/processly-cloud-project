@@ -33,7 +33,7 @@ const OrderDetailsPage = () => {
       try {
         await sleep(1000);
         const response = await fetch(
-          `https://processly101.herokuapp.com/orders?orderId=${orderId}`,
+          `https://processly.azurewebsites.net/orders?orderId=${orderId}`,
           {
             method: "GET",
             headers: {

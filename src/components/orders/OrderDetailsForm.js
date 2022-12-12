@@ -35,7 +35,7 @@ const OrderDetailsForm = () => {
       }
 
       const response = await fetch(
-        `https://processly101.herokuapp.com/orders?orderId=${order.orderId}`,
+        `https://processly.azurewebsites.net/orders?orderId=${order.orderId}`,
         {
           method: "PUT",
           headers: {

@@ -15,7 +15,7 @@ const StUpdateOrderStatus = () => {
         formData["email"] = "all";
       }
       const response = await fetch(
-        `https://processly101.herokuapp.com/orders?email=${formData["email"]}`,
+        `https://processly.azurewebsites.net/orders?email=${formData["email"]}`,
         {
           method: "GET",
           headers: {
