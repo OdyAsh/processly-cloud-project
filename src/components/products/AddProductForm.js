@@ -27,7 +27,7 @@ const AddProductForm = (props) => {
       console.log(formData);
 
       const response = await fetch(
-        "https://processly101.herokuapp.com/products",
+        "https://processly.azurewebsites.net/products",
         {
           method: "POST",
           headers: {

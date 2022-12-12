@@ -61,7 +61,7 @@ const SignupForm = () => {
       }
 
       const response = await fetch(
-        "https://processly101.herokuapp.com/auth/signup",
+        "https://processly.azurewebsites.net/auth/signup",
         {
           method: "POST",
           headers: {

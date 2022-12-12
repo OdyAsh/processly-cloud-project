@@ -73,7 +73,7 @@ const StGenerateReport = () => {
       try {
         // send an HTTP GET request to the get report route we defined in our Express REST API
         const response = await fetch(
-          "https://processly101.herokuapp.com/bmanagment/report", // fetches today's report
+          "https://processly.azurewebsites.net/bmanagment/report", // fetches today's report
           {
             signal: fetchSignal,
           }

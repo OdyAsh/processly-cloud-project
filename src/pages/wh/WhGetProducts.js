@@ -28,7 +28,7 @@ const WhGetProducts = () => {
       try {
         await sleep(1000);
         const response = await fetch(
-          "https://processly101.herokuapp.com/products",
+          "https://processly.azurewebsites.net/products",
           {
             method: "GET",
             headers: {

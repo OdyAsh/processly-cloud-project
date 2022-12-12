@@ -35,7 +35,7 @@ const UpdateProductForm = (props) => {
       console.log(formData);
       let methodTmp = changeType === "Update" ? "PUT" : "DELETE";
       const response = await fetch(
-        "https://processly101.herokuapp.com/products",
+        "https://processly.azurewebsites.net/products",
         {
           method: methodTmp,
           headers: {
