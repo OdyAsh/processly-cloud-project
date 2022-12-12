@@ -6,8 +6,6 @@ import NavItem from "./NavItem";
 
 const NavSignInUpOut = (props) => {
   const authContext = useContext(AuthContext);
-  console.log("token: ");
-  console.log(authContext);
   const navigate = useNavigate();
 
   const signout = () => {

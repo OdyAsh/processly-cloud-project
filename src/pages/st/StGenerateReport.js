@@ -102,6 +102,7 @@ const StGenerateReport = () => {
           productFreqList.push([key, report.products[key][1]]);
         }
         setBarChart(productFreqList);
+        console.log("b", productFreqList);
         // after we set the report' state, let's set the loading state to false
         setIsLoading(false);
       } catch (err) {

@@ -81,10 +81,11 @@ const MakeOrderForm = (props) => {
 
   const submitHandler = async (formData) => {
     try {
-      formData["productId"] = spo.productId;
+      formData["productId"] = spo._id;
       formData["userId"] = authContext.id;
       formData["status"] = "pending"; // adding order's status as "pending"
       formData["totalPrice"] = spPrice * spq;
+      formData["quantity"] = parseInt(formData["quantity"]);
       if (spSize === "") {
         delete formData["size"];
       }

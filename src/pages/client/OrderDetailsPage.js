@@ -48,7 +48,8 @@ const OrderDetailsPage = () => {
         if (!response.ok) {
           throw Error(data.error);
         }
-        setOrder(data.order);
+        console.log("d", data);
+        setOrder(data.orders);
         console.log("done");
         setIsLoading(false);
       } catch (err) {
