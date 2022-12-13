@@ -48,9 +48,8 @@ const OrderDetailsPage = () => {
         if (!response.ok) {
           throw Error(data.error);
         }
-        console.log("d", data);
+        console.log("data returned in orderDetailsPage:", data);
         setOrder(data.orders);
-        console.log("done");
         setIsLoading(false);
       } catch (err) {
         console.log(err.message);
@@ -61,7 +60,7 @@ const OrderDetailsPage = () => {
     return () => {
       fetchAbortController.abort();
     };
-  }, [authContext.token, orderId]);
+  }, []);
 
   return <div className="row-center-content">{content(isLoading, order)}</div>;
 };

@@ -49,6 +49,7 @@ const OrdersPage = () => {
         // after we set the orders' state, let's set the loading state to false
         setIsLoading(false);
       } catch (err) {
+        console.log(err);
         console.log(err.message);
       }
     };

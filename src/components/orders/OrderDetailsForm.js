@@ -7,9 +7,15 @@ import GetDate from "./../utils/GetDate";
 import GetTime from "./../utils/GetTime";
 import { useLocation } from "react-router-dom";
 
-const OrderDetailsForm = () => {
+const OrderDetailsForm = (props) => {
   const location = useLocation();
-  const order = location.state; // getting the order object from OrderSummary.js
+  let order;
+  if (props.order) {
+    // passed from OrderDetailsPage.js
+    order = props.order;
+  } else {
+    order = location.state; // getting the order object from OrderSummary.js
+  }
   const { register } = useForm();
   const authContext = useContext(AuthContext);
   const [dn, setDn] = useState(
@@ -33,9 +39,9 @@ const OrderDetailsForm = () => {
         // then p.o.v of client that chose to update order
         statusTmp = order.status;
       }
-
+      console.log("o:", order);
       const response = await fetch(
-        `https://processly.azurewebsites.net/orders?orderId=${order.orderId}`,
+        `https://processly.azurewebsites.net/orders?orderId=${order._id}`,
         {
           method: "PUT",
           headers: {
