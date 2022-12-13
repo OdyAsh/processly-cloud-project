@@ -9,7 +9,6 @@ const StGenerateReport = () => {
   const [pieChart, setPieChart] = useState([]);
   const [barChart, setBarChart] = useState([]);
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  let productFreqList = [];
 
   const content = (isLoading, report) => {
     if (isLoading) {
@@ -18,57 +17,61 @@ const StGenerateReport = () => {
           <Loading />
         </div>
       );
-    }
-    return (
-      <div className="generate-report">
-        <div className="top">
-          <div className="grid">
-            <div className="report-card">
-              <p style={{ fontWeight: "bold" }}>Weekly Revenue:</p>
-              <p>{report.totalRevenue}</p>
-            </div>
-            <div className="report-card">
-              <p style={{ fontWeight: "bold" }}>Weekly Number of Orders:</p>
-              <p>{report.numOfOrders}</p>
-            </div>
-            <div className="report-card">
-              <p style={{ fontWeight: "bold" }}>Most Sold Product This Week:</p>
-              <p>{report.mostSoldProduct}</p>
-            </div>
-            <div className="report-card">
-              <p style={{ fontWeight: "bold" }}>Highest Purchase This Week:</p>
-              <p>{report.highestPurchaser}</p>
+    } else {
+      return (
+        <div className="generate-report">
+          <div className="top">
+            <div className="grid">
+              <div className="report-card">
+                <p style={{ fontWeight: "bold" }}>Weekly Revenue:</p>
+                <p>{report.totalRevenue}</p>
+              </div>
+              <div className="report-card">
+                <p style={{ fontWeight: "bold" }}>Weekly Number of Orders:</p>
+                <p>{report.numOfOrders}</p>
+              </div>
+              <div className="report-card">
+                <p style={{ fontWeight: "bold" }}>
+                  Most Sold Product This Week:
+                </p>
+                <p>{report.mostSoldProduct}</p>
+              </div>
+              <div className="report-card">
+                <p style={{ fontWeight: "bold" }}>
+                  Highest Purchase This Week:
+                </p>
+                <p>{report.highestPurchaser}</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="bottom">
-          <Chart
-            chartType="PieChart"
-            data={pieChart}
-            options={{
-              title: "Number of Products Sold",
-            }}
-            height={"400px"}
-          />
+          <div className="bottom">
+            <Chart
+              chartType="PieChart"
+              data={pieChart}
+              options={{
+                title: "Number of Products Sold",
+              }}
+              height={"400px"}
+            />
 
-          <Chart
-            chartType="Bar"
-            data={barChart}
-            options={{
-              title: "Number of Products Sold",
-            }}
-            height={"400px"}
-          />
+            <Chart
+              chartType="Bar"
+              data={barChart}
+              options={{
+                title: "Number of Products Sold",
+              }}
+              height={"400px"}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   };
 
   useEffect(() => {
     const fetchAbortController = new AbortController();
     const fetchSignal = fetchAbortController.signal;
-
     const fetchReport = async () => {
       try {
         // send an HTTP GET request to the get report route we defined in our Express REST API
@@ -80,7 +83,6 @@ const StGenerateReport = () => {
         );
         // parse the response content to JSON and store it into data variable
         const data = await response.json();
-        console.log("d:", data);
         await sleep(1000);
         // If there is an HTTP error (the response is NOT ok), throw the error message we get from the REST API.
         if (!response.ok) {
@@ -91,18 +93,18 @@ const StGenerateReport = () => {
         // we now need to set our component state to the report we fetched
         setReport(data.report);
 
-        productFreqList = [["Product", "Sold Units"]];
-        for (let key in report.products) {
-          productFreqList.push([key, report.products[key][0]]);
+        let productFreqListTmp = [["Product", "Sold Units"]];
+        for (let key in data.report.products) {
+          // using "data.report" instead of state variable "report", as it will be updated after the useEffect finishes
+          productFreqListTmp.push([key, data.report.products[key][0]]);
         }
-        setPieChart(productFreqList);
+        setPieChart(productFreqListTmp);
 
-        productFreqList = [["Product", "Total Price Paid"]];
-        for (let key in report.products) {
-          productFreqList.push([key, report.products[key][1]]);
+        productFreqListTmp = [["Product", "Total Revenue"]];
+        for (let key in data.report.products) {
+          productFreqListTmp.push([key, data.report.products[key][1]]);
         }
-        setBarChart(productFreqList);
-        console.log("b", productFreqList);
+        setBarChart(productFreqListTmp);
         // after we set the report' state, let's set the loading state to false
         setIsLoading(false);
       } catch (err) {
@@ -111,7 +113,6 @@ const StGenerateReport = () => {
     };
 
     fetchReport();
-    setIsLoading(false);
     return () => {
       fetchAbortController.abort();
     };

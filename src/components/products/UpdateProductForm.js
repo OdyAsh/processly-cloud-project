@@ -50,7 +50,7 @@ const UpdateProductForm = (props) => {
       if (!response.ok) {
         throw Error(data.error);
       }
-      console.log(data);
+      console.log("From UpdateProductForm:", data);
 
       toast.success("Product updated successfully! 💪", {
         position: "bottom-center",

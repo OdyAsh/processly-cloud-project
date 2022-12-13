@@ -13,7 +13,9 @@ const ProductSummary = (props) => {
         <div>Product ID: {props.product._id}</div>
         <div>Product Name: {props.product.name}</div>
         <div>Price: {props.product.price}</div>
-        {"sizes" in props.product && <div>Sizes: {props.product.sizes}</div>}
+        {"sizes" in props.product && (
+          <div>Sizes: {"" + props.product.sizes}</div>
+        )}
       </div>
     </div>
   );

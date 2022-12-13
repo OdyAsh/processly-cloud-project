@@ -16,7 +16,8 @@ const WhGetProducts = () => {
     if (isLoading) {
       return <Loading />;
     }
-
+    console.log("from WhGetProducts.js:");
+    console.log(products);
     return <ProductsList products={products} />;
   };
 
