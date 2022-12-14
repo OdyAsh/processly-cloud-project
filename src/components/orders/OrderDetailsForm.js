@@ -6,9 +6,14 @@ import TextAreaInput from "../../UI/form/TextAreaInput";
 import GetDate from "./../utils/GetDate";
 import GetTime from "./../utils/GetTime";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const OrderDetailsForm = (props) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { register } = useForm();
+  const authContext = useContext(AuthContext);
+  console.log(authContext);
   let order;
   if (props.order) {
     // passed from OrderDetailsPage.js
@@ -16,8 +21,6 @@ const OrderDetailsForm = (props) => {
   } else {
     order = location.state; // getting the order object from OrderSummary.js
   }
-  const { register } = useForm();
-  const authContext = useContext(AuthContext);
   const [dn, setDn] = useState(
     "deliveryNote" in order ? order.deliveryNote : ""
   );
@@ -32,14 +35,13 @@ const OrderDetailsForm = (props) => {
     try {
       let statusTmp = "";
       let dnTmp = dn;
-      if (task in ["en route", "pending", "delivered", "cancelled"]) {
+      if (task !== "update") {
         // then either p.o.v of st, or client that chose to cancel order
         statusTmp = task;
       } else {
         // then p.o.v of client that chose to update order
         statusTmp = order.status;
       }
-      console.log("o:", order);
       const response = await fetch(
         `https://processly.azurewebsites.net/orders?orderId=${order._id}`,
         {
@@ -70,6 +72,11 @@ const OrderDetailsForm = (props) => {
         progress: undefined,
         theme: "light",
       });
+      if (location.pathname.includes("st/")) {
+        navigate("/st");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       console.log(err.message);
       toast.error(err.message, {

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import GetDate from "./../utils/GetDate";
 
 const OrderSummary = (props) => {
+  console.log("p:", props.order);
   const navigate = useNavigate();
   const goToAnOrder = () => {
     // navigate to a specific order

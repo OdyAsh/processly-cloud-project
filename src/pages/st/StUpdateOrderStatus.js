@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import AuthContext from "../../store/authContext";
 import TextInput from "../../UI/form/TextInput";
 import OrdersList from "../../components/orders/OrdersList";
@@ -33,6 +34,17 @@ const StUpdateOrderStatus = () => {
       setOrders(data.orders);
     } catch (err) {
       console.log(err.message);
+      toast.error(err.message, {
+        // shows toast which is housed by the container ToastContainer in App.js
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 

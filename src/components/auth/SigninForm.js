@@ -10,7 +10,7 @@ const SigninForm = () => {
   const { register, handleSubmit, formState } = useForm();
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
-
+  console.log(authContext);
   const submitHandler = async (formData) => {
     try {
       const response = await fetch(
